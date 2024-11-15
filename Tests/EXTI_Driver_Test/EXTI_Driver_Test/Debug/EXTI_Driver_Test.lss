@@ -1,0 +1,2348 @@
+
+EXTI_Driver_Test.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000ea4  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000007  00800060  00800060  00000f18  2**0
+                  ALLOC
+  2 .stab         00001104  00000000  00000000  00000f18  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  3 .stabstr      0000064c  00000000  00000000  0000201c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 6d 06 	jmp	0xcda	; 0xcda <__vector_1>
+   8:	0c 94 a0 06 	jmp	0xd40	; 0xd40 <__vector_2>
+   c:	0c 94 d3 06 	jmp	0xda6	; 0xda6 <__vector_3>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a7 36       	cpi	r26, 0x67	; 103
+  6c:	b1 07       	cpc	r27, r17
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 22 07 	call	0xe44	; 0xe44 <main>
+  74:	0c 94 50 07 	jmp	0xea0	; 0xea0 <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <DIO_voidInit>:
+#include "DIO_interface.h"
+#include "DIO_private.h"
+#include "DIO_config.h"
+
+void DIO_voidInit(void)
+{
+  7c:	df 93       	push	r29
+  7e:	cf 93       	push	r28
+  80:	cd b7       	in	r28, 0x3d	; 61
+  82:	de b7       	in	r29, 0x3e	; 62
+	DIO_u8_DDRA_REG = Conc(DIO_u8_PA7_INTIAL_DIRECTION, DIO_u8_PA6_INTIAL_DIRECTION, DIO_u8_PA5_INTIAL_DIRECTION, DIO_u8_PA4_INTIAL_DIRECTION,DIO_u8_PA3_INTIAL_DIRECTION, DIO_u8_PA2_INTIAL_DIRECTION, DIO_u8_PA1_INTIAL_DIRECTION, DIO_u8_PA0_INTIAL_DIRECTION);
+  84:	ea e3       	ldi	r30, 0x3A	; 58
+  86:	f0 e0       	ldi	r31, 0x00	; 0
+  88:	81 e0       	ldi	r24, 0x01	; 1
+  8a:	80 83       	st	Z, r24
+
+	DIO_u8_DDRB_REG = Conc(DIO_u8_PB7_INTIAL_DIRECTION, DIO_u8_PB6_INTIAL_DIRECTION, DIO_u8_PB5_INTIAL_DIRECTION, DIO_u8_PB4_INTIAL_DIRECTION,DIO_u8_PB3_INTIAL_DIRECTION, DIO_u8_PB2_INTIAL_DIRECTION, DIO_u8_PB1_INTIAL_DIRECTION, DIO_u8_PB0_INTIAL_DIRECTION);
+  8c:	e7 e3       	ldi	r30, 0x37	; 55
+  8e:	f0 e0       	ldi	r31, 0x00	; 0
+  90:	10 82       	st	Z, r1
+
+	DIO_u8_DDRC_REG = Conc(DIO_u8_PC7_INTIAL_DIRECTION, DIO_u8_PC6_INTIAL_DIRECTION, DIO_u8_PC5_INTIAL_DIRECTION, DIO_u8_PC4_INTIAL_DIRECTION,DIO_u8_PC3_INTIAL_DIRECTION, DIO_u8_PC2_INTIAL_DIRECTION, DIO_u8_PC1_INTIAL_DIRECTION, DIO_u8_PC0_INTIAL_DIRECTION);
+  92:	e4 e3       	ldi	r30, 0x34	; 52
+  94:	f0 e0       	ldi	r31, 0x00	; 0
+  96:	10 82       	st	Z, r1
+
+	DIO_u8_DDRD_REG = Conc(DIO_u8_PD7_INTIAL_DIRECTION, DIO_u8_PD6_INTIAL_DIRECTION, DIO_u8_PD5_INTIAL_DIRECTION, DIO_u8_PD4_INTIAL_DIRECTION,DIO_u8_PD3_INTIAL_DIRECTION, DIO_u8_PD2_INTIAL_DIRECTION, DIO_u8_PD1_INTIAL_DIRECTION, DIO_u8_PD0_INTIAL_DIRECTION);
+  98:	e1 e3       	ldi	r30, 0x31	; 49
+  9a:	f0 e0       	ldi	r31, 0x00	; 0
+  9c:	10 82       	st	Z, r1
+
+
+	DIO_u8_PORTA_REG = Conc(DIO_u8_PA7_INTIAL_VALUE, DIO_u8_PA6_INTIAL_VALUE, DIO_u8_PA5_INTIAL_VALUE, DIO_u8_PA4_INTIAL_VALUE,DIO_u8_PA3_INTIAL_VALUE, DIO_u8_PA2_INTIAL_VALUE, DIO_u8_PA1_INTIAL_VALUE, DIO_u8_PA0_INTIAL_VALUE);
+  9e:	eb e3       	ldi	r30, 0x3B	; 59
+  a0:	f0 e0       	ldi	r31, 0x00	; 0
+  a2:	10 82       	st	Z, r1
+
+	DIO_u8_PORTB_REG = Conc(DIO_u8_PB7_INTIAL_VALUE, DIO_u8_PB6_INTIAL_VALUE, DIO_u8_PB5_INTIAL_VALUE, DIO_u8_PB4_INTIAL_VALUE,DIO_u8_PB3_INTIAL_VALUE, DIO_u8_PB2_INTIAL_VALUE, DIO_u8_PB1_INTIAL_VALUE, DIO_u8_PB0_INTIAL_VALUE);
+  a4:	e8 e3       	ldi	r30, 0x38	; 56
+  a6:	f0 e0       	ldi	r31, 0x00	; 0
+  a8:	10 82       	st	Z, r1
+
+	DIO_u8_PORTC_REG = Conc(DIO_u8_PC7_INTIAL_VALUE, DIO_u8_PC6_INTIAL_VALUE, DIO_u8_PC5_INTIAL_VALUE, DIO_u8_PC4_INTIAL_VALUE,DIO_u8_PC3_INTIAL_VALUE, DIO_u8_PC2_INTIAL_VALUE, DIO_u8_PC1_INTIAL_VALUE, DIO_u8_PC0_INTIAL_VALUE);
+  aa:	e5 e3       	ldi	r30, 0x35	; 53
+  ac:	f0 e0       	ldi	r31, 0x00	; 0
+  ae:	10 82       	st	Z, r1
+
+	DIO_u8_PORTD_REG = Conc(DIO_u8_PD7_INTIAL_VALUE, DIO_u8_PD6_INTIAL_VALUE, DIO_u8_PD5_INTIAL_VALUE, DIO_u8_PD4_INTIAL_VALUE,DIO_u8_PD3_INTIAL_VALUE, DIO_u8_PD2_INTIAL_VALUE, DIO_u8_PD1_INTIAL_VALUE, DIO_u8_PD0_INTIAL_VALUE);
+  b0:	e2 e3       	ldi	r30, 0x32	; 50
+  b2:	f0 e0       	ldi	r31, 0x00	; 0
+  b4:	84 e0       	ldi	r24, 0x04	; 4
+  b6:	80 83       	st	Z, r24
+
+}
+  b8:	cf 91       	pop	r28
+  ba:	df 91       	pop	r29
+  bc:	08 95       	ret
+
+000000be <DIO_u8SetPinDirection>:
+
+
+u8 DIO_u8SetPinDirection(u8 Copy_u8PortId, u8 Copy_u8PinId, u8 Copy_u8PinDirection)
+{
+  be:	df 93       	push	r29
+  c0:	cf 93       	push	r28
+  c2:	cd b7       	in	r28, 0x3d	; 61
+  c4:	de b7       	in	r29, 0x3e	; 62
+  c6:	2e 97       	sbiw	r28, 0x0e	; 14
+  c8:	0f b6       	in	r0, 0x3f	; 63
+  ca:	f8 94       	cli
+  cc:	de bf       	out	0x3e, r29	; 62
+  ce:	0f be       	out	0x3f, r0	; 63
+  d0:	cd bf       	out	0x3d, r28	; 61
+  d2:	8a 83       	std	Y+2, r24	; 0x02
+  d4:	6b 83       	std	Y+3, r22	; 0x03
+  d6:	4c 83       	std	Y+4, r20	; 0x04
+	u8 Local_u8ErrorState = STD_TYPES_OK;
+  d8:	81 e0       	ldi	r24, 0x01	; 1
+  da:	89 83       	std	Y+1, r24	; 0x01
+	if((Copy_u8PortId <= DIO_u8_PORTD) && (Copy_u8PinId <= DIO_u8_PIN7)&&((Copy_u8PinDirection == DIO_u8_INPUT)||(Copy_u8PinDirection == DIO_u8_OUTPUT)))
+  dc:	8a 81       	ldd	r24, Y+2	; 0x02
+  de:	84 30       	cpi	r24, 0x04	; 4
+  e0:	08 f0       	brcs	.+2      	; 0xe4 <DIO_u8SetPinDirection+0x26>
+  e2:	0d c1       	rjmp	.+538    	; 0x2fe <DIO_u8SetPinDirection+0x240>
+  e4:	8b 81       	ldd	r24, Y+3	; 0x03
+  e6:	88 30       	cpi	r24, 0x08	; 8
+  e8:	08 f0       	brcs	.+2      	; 0xec <DIO_u8SetPinDirection+0x2e>
+  ea:	09 c1       	rjmp	.+530    	; 0x2fe <DIO_u8SetPinDirection+0x240>
+  ec:	8c 81       	ldd	r24, Y+4	; 0x04
+  ee:	88 23       	and	r24, r24
+  f0:	21 f0       	breq	.+8      	; 0xfa <DIO_u8SetPinDirection+0x3c>
+  f2:	8c 81       	ldd	r24, Y+4	; 0x04
+  f4:	81 30       	cpi	r24, 0x01	; 1
+  f6:	09 f0       	breq	.+2      	; 0xfa <DIO_u8SetPinDirection+0x3c>
+  f8:	02 c1       	rjmp	.+516    	; 0x2fe <DIO_u8SetPinDirection+0x240>
+	{
+		switch(Copy_u8PortId)
+  fa:	8a 81       	ldd	r24, Y+2	; 0x02
+  fc:	28 2f       	mov	r18, r24
+  fe:	30 e0       	ldi	r19, 0x00	; 0
+ 100:	3e 87       	std	Y+14, r19	; 0x0e
+ 102:	2d 87       	std	Y+13, r18	; 0x0d
+ 104:	8d 85       	ldd	r24, Y+13	; 0x0d
+ 106:	9e 85       	ldd	r25, Y+14	; 0x0e
+ 108:	81 30       	cpi	r24, 0x01	; 1
+ 10a:	91 05       	cpc	r25, r1
+ 10c:	09 f4       	brne	.+2      	; 0x110 <DIO_u8SetPinDirection+0x52>
+ 10e:	4f c0       	rjmp	.+158    	; 0x1ae <DIO_u8SetPinDirection+0xf0>
+ 110:	2d 85       	ldd	r18, Y+13	; 0x0d
+ 112:	3e 85       	ldd	r19, Y+14	; 0x0e
+ 114:	22 30       	cpi	r18, 0x02	; 2
+ 116:	31 05       	cpc	r19, r1
+ 118:	2c f4       	brge	.+10     	; 0x124 <DIO_u8SetPinDirection+0x66>
+ 11a:	8d 85       	ldd	r24, Y+13	; 0x0d
+ 11c:	9e 85       	ldd	r25, Y+14	; 0x0e
+ 11e:	00 97       	sbiw	r24, 0x00	; 0
+ 120:	71 f0       	breq	.+28     	; 0x13e <DIO_u8SetPinDirection+0x80>
+ 122:	ee c0       	rjmp	.+476    	; 0x300 <DIO_u8SetPinDirection+0x242>
+ 124:	2d 85       	ldd	r18, Y+13	; 0x0d
+ 126:	3e 85       	ldd	r19, Y+14	; 0x0e
+ 128:	22 30       	cpi	r18, 0x02	; 2
+ 12a:	31 05       	cpc	r19, r1
+ 12c:	09 f4       	brne	.+2      	; 0x130 <DIO_u8SetPinDirection+0x72>
+ 12e:	77 c0       	rjmp	.+238    	; 0x21e <DIO_u8SetPinDirection+0x160>
+ 130:	8d 85       	ldd	r24, Y+13	; 0x0d
+ 132:	9e 85       	ldd	r25, Y+14	; 0x0e
+ 134:	83 30       	cpi	r24, 0x03	; 3
+ 136:	91 05       	cpc	r25, r1
+ 138:	09 f4       	brne	.+2      	; 0x13c <DIO_u8SetPinDirection+0x7e>
+ 13a:	a9 c0       	rjmp	.+338    	; 0x28e <DIO_u8SetPinDirection+0x1d0>
+ 13c:	e1 c0       	rjmp	.+450    	; 0x300 <DIO_u8SetPinDirection+0x242>
+		{
+			case DIO_u8_PORTA:
+				switch(Copy_u8PinId)
+ 13e:	8b 81       	ldd	r24, Y+3	; 0x03
+ 140:	28 2f       	mov	r18, r24
+ 142:	30 e0       	ldi	r19, 0x00	; 0
+ 144:	3c 87       	std	Y+12, r19	; 0x0c
+ 146:	2b 87       	std	Y+11, r18	; 0x0b
+ 148:	8b 85       	ldd	r24, Y+11	; 0x0b
+ 14a:	9c 85       	ldd	r25, Y+12	; 0x0c
+ 14c:	00 97       	sbiw	r24, 0x00	; 0
+ 14e:	31 f0       	breq	.+12     	; 0x15c <DIO_u8SetPinDirection+0x9e>
+ 150:	2b 85       	ldd	r18, Y+11	; 0x0b
+ 152:	3c 85       	ldd	r19, Y+12	; 0x0c
+ 154:	21 30       	cpi	r18, 0x01	; 1
+ 156:	31 05       	cpc	r19, r1
+ 158:	b1 f0       	breq	.+44     	; 0x186 <DIO_u8SetPinDirection+0xc8>
+ 15a:	d2 c0       	rjmp	.+420    	; 0x300 <DIO_u8SetPinDirection+0x242>
+				{
+					case DIO_u8_INPUT:CLR_BIT(DIO_u8_DDRA_REG,Copy_u8PinId);break;
+ 15c:	aa e3       	ldi	r26, 0x3A	; 58
+ 15e:	b0 e0       	ldi	r27, 0x00	; 0
+ 160:	ea e3       	ldi	r30, 0x3A	; 58
+ 162:	f0 e0       	ldi	r31, 0x00	; 0
+ 164:	80 81       	ld	r24, Z
+ 166:	48 2f       	mov	r20, r24
+ 168:	8b 81       	ldd	r24, Y+3	; 0x03
+ 16a:	28 2f       	mov	r18, r24
+ 16c:	30 e0       	ldi	r19, 0x00	; 0
+ 16e:	81 e0       	ldi	r24, 0x01	; 1
+ 170:	90 e0       	ldi	r25, 0x00	; 0
+ 172:	02 2e       	mov	r0, r18
+ 174:	02 c0       	rjmp	.+4      	; 0x17a <DIO_u8SetPinDirection+0xbc>
+ 176:	88 0f       	add	r24, r24
+ 178:	99 1f       	adc	r25, r25
+ 17a:	0a 94       	dec	r0
+ 17c:	e2 f7       	brpl	.-8      	; 0x176 <DIO_u8SetPinDirection+0xb8>
+ 17e:	80 95       	com	r24
+ 180:	84 23       	and	r24, r20
+ 182:	8c 93       	st	X, r24
+ 184:	bd c0       	rjmp	.+378    	; 0x300 <DIO_u8SetPinDirection+0x242>
+					case DIO_u8_OUTPUT:SET_BIT(DIO_u8_DDRA_REG,Copy_u8PinId);break;
+ 186:	aa e3       	ldi	r26, 0x3A	; 58
+ 188:	b0 e0       	ldi	r27, 0x00	; 0
+ 18a:	ea e3       	ldi	r30, 0x3A	; 58
+ 18c:	f0 e0       	ldi	r31, 0x00	; 0
+ 18e:	80 81       	ld	r24, Z
+ 190:	48 2f       	mov	r20, r24
+ 192:	8b 81       	ldd	r24, Y+3	; 0x03
+ 194:	28 2f       	mov	r18, r24
+ 196:	30 e0       	ldi	r19, 0x00	; 0
+ 198:	81 e0       	ldi	r24, 0x01	; 1
+ 19a:	90 e0       	ldi	r25, 0x00	; 0
+ 19c:	02 2e       	mov	r0, r18
+ 19e:	02 c0       	rjmp	.+4      	; 0x1a4 <DIO_u8SetPinDirection+0xe6>
+ 1a0:	88 0f       	add	r24, r24
+ 1a2:	99 1f       	adc	r25, r25
+ 1a4:	0a 94       	dec	r0
+ 1a6:	e2 f7       	brpl	.-8      	; 0x1a0 <DIO_u8SetPinDirection+0xe2>
+ 1a8:	84 2b       	or	r24, r20
+ 1aa:	8c 93       	st	X, r24
+ 1ac:	a9 c0       	rjmp	.+338    	; 0x300 <DIO_u8SetPinDirection+0x242>
+				}
+			break;
+			case DIO_u8_PORTB:
+				switch(Copy_u8PinId)
+ 1ae:	8b 81       	ldd	r24, Y+3	; 0x03
+ 1b0:	28 2f       	mov	r18, r24
+ 1b2:	30 e0       	ldi	r19, 0x00	; 0
+ 1b4:	3a 87       	std	Y+10, r19	; 0x0a
+ 1b6:	29 87       	std	Y+9, r18	; 0x09
+ 1b8:	89 85       	ldd	r24, Y+9	; 0x09
+ 1ba:	9a 85       	ldd	r25, Y+10	; 0x0a
+ 1bc:	00 97       	sbiw	r24, 0x00	; 0
+ 1be:	31 f0       	breq	.+12     	; 0x1cc <DIO_u8SetPinDirection+0x10e>
+ 1c0:	29 85       	ldd	r18, Y+9	; 0x09
+ 1c2:	3a 85       	ldd	r19, Y+10	; 0x0a
+ 1c4:	21 30       	cpi	r18, 0x01	; 1
+ 1c6:	31 05       	cpc	r19, r1
+ 1c8:	b1 f0       	breq	.+44     	; 0x1f6 <DIO_u8SetPinDirection+0x138>
+ 1ca:	9a c0       	rjmp	.+308    	; 0x300 <DIO_u8SetPinDirection+0x242>
+				{
+					case DIO_u8_INPUT:CLR_BIT(DIO_u8_DDRB_REG,Copy_u8PinId);break;
+ 1cc:	a7 e3       	ldi	r26, 0x37	; 55
+ 1ce:	b0 e0       	ldi	r27, 0x00	; 0
+ 1d0:	e7 e3       	ldi	r30, 0x37	; 55
+ 1d2:	f0 e0       	ldi	r31, 0x00	; 0
+ 1d4:	80 81       	ld	r24, Z
+ 1d6:	48 2f       	mov	r20, r24
+ 1d8:	8b 81       	ldd	r24, Y+3	; 0x03
+ 1da:	28 2f       	mov	r18, r24
+ 1dc:	30 e0       	ldi	r19, 0x00	; 0
+ 1de:	81 e0       	ldi	r24, 0x01	; 1
+ 1e0:	90 e0       	ldi	r25, 0x00	; 0
+ 1e2:	02 2e       	mov	r0, r18
+ 1e4:	02 c0       	rjmp	.+4      	; 0x1ea <DIO_u8SetPinDirection+0x12c>
+ 1e6:	88 0f       	add	r24, r24
+ 1e8:	99 1f       	adc	r25, r25
+ 1ea:	0a 94       	dec	r0
+ 1ec:	e2 f7       	brpl	.-8      	; 0x1e6 <DIO_u8SetPinDirection+0x128>
+ 1ee:	80 95       	com	r24
+ 1f0:	84 23       	and	r24, r20
+ 1f2:	8c 93       	st	X, r24
+ 1f4:	85 c0       	rjmp	.+266    	; 0x300 <DIO_u8SetPinDirection+0x242>
+					case DIO_u8_OUTPUT:SET_BIT(DIO_u8_DDRB_REG,Copy_u8PinId);break;
+ 1f6:	a7 e3       	ldi	r26, 0x37	; 55
+ 1f8:	b0 e0       	ldi	r27, 0x00	; 0
+ 1fa:	e7 e3       	ldi	r30, 0x37	; 55
+ 1fc:	f0 e0       	ldi	r31, 0x00	; 0
+ 1fe:	80 81       	ld	r24, Z
+ 200:	48 2f       	mov	r20, r24
+ 202:	8b 81       	ldd	r24, Y+3	; 0x03
+ 204:	28 2f       	mov	r18, r24
+ 206:	30 e0       	ldi	r19, 0x00	; 0
+ 208:	81 e0       	ldi	r24, 0x01	; 1
+ 20a:	90 e0       	ldi	r25, 0x00	; 0
+ 20c:	02 2e       	mov	r0, r18
+ 20e:	02 c0       	rjmp	.+4      	; 0x214 <DIO_u8SetPinDirection+0x156>
+ 210:	88 0f       	add	r24, r24
+ 212:	99 1f       	adc	r25, r25
+ 214:	0a 94       	dec	r0
+ 216:	e2 f7       	brpl	.-8      	; 0x210 <DIO_u8SetPinDirection+0x152>
+ 218:	84 2b       	or	r24, r20
+ 21a:	8c 93       	st	X, r24
+ 21c:	71 c0       	rjmp	.+226    	; 0x300 <DIO_u8SetPinDirection+0x242>
+				}
+			break;
+			case DIO_u8_PORTC:
+				switch(Copy_u8PinId)
+ 21e:	8b 81       	ldd	r24, Y+3	; 0x03
+ 220:	28 2f       	mov	r18, r24
+ 222:	30 e0       	ldi	r19, 0x00	; 0
+ 224:	38 87       	std	Y+8, r19	; 0x08
+ 226:	2f 83       	std	Y+7, r18	; 0x07
+ 228:	8f 81       	ldd	r24, Y+7	; 0x07
+ 22a:	98 85       	ldd	r25, Y+8	; 0x08
+ 22c:	00 97       	sbiw	r24, 0x00	; 0
+ 22e:	31 f0       	breq	.+12     	; 0x23c <DIO_u8SetPinDirection+0x17e>
+ 230:	2f 81       	ldd	r18, Y+7	; 0x07
+ 232:	38 85       	ldd	r19, Y+8	; 0x08
+ 234:	21 30       	cpi	r18, 0x01	; 1
+ 236:	31 05       	cpc	r19, r1
+ 238:	b1 f0       	breq	.+44     	; 0x266 <DIO_u8SetPinDirection+0x1a8>
+ 23a:	62 c0       	rjmp	.+196    	; 0x300 <DIO_u8SetPinDirection+0x242>
+				{
+					case DIO_u8_INPUT:CLR_BIT(DIO_u8_DDRC_REG,Copy_u8PinId);break;
+ 23c:	a4 e3       	ldi	r26, 0x34	; 52
+ 23e:	b0 e0       	ldi	r27, 0x00	; 0
+ 240:	e4 e3       	ldi	r30, 0x34	; 52
+ 242:	f0 e0       	ldi	r31, 0x00	; 0
+ 244:	80 81       	ld	r24, Z
+ 246:	48 2f       	mov	r20, r24
+ 248:	8b 81       	ldd	r24, Y+3	; 0x03
+ 24a:	28 2f       	mov	r18, r24
+ 24c:	30 e0       	ldi	r19, 0x00	; 0
+ 24e:	81 e0       	ldi	r24, 0x01	; 1
+ 250:	90 e0       	ldi	r25, 0x00	; 0
+ 252:	02 2e       	mov	r0, r18
+ 254:	02 c0       	rjmp	.+4      	; 0x25a <DIO_u8SetPinDirection+0x19c>
+ 256:	88 0f       	add	r24, r24
+ 258:	99 1f       	adc	r25, r25
+ 25a:	0a 94       	dec	r0
+ 25c:	e2 f7       	brpl	.-8      	; 0x256 <DIO_u8SetPinDirection+0x198>
+ 25e:	80 95       	com	r24
+ 260:	84 23       	and	r24, r20
+ 262:	8c 93       	st	X, r24
+ 264:	4d c0       	rjmp	.+154    	; 0x300 <DIO_u8SetPinDirection+0x242>
+					case DIO_u8_OUTPUT:SET_BIT(DIO_u8_DDRC_REG,Copy_u8PinId);break;
+ 266:	a4 e3       	ldi	r26, 0x34	; 52
+ 268:	b0 e0       	ldi	r27, 0x00	; 0
+ 26a:	e4 e3       	ldi	r30, 0x34	; 52
+ 26c:	f0 e0       	ldi	r31, 0x00	; 0
+ 26e:	80 81       	ld	r24, Z
+ 270:	48 2f       	mov	r20, r24
+ 272:	8b 81       	ldd	r24, Y+3	; 0x03
+ 274:	28 2f       	mov	r18, r24
+ 276:	30 e0       	ldi	r19, 0x00	; 0
+ 278:	81 e0       	ldi	r24, 0x01	; 1
+ 27a:	90 e0       	ldi	r25, 0x00	; 0
+ 27c:	02 2e       	mov	r0, r18
+ 27e:	02 c0       	rjmp	.+4      	; 0x284 <DIO_u8SetPinDirection+0x1c6>
+ 280:	88 0f       	add	r24, r24
+ 282:	99 1f       	adc	r25, r25
+ 284:	0a 94       	dec	r0
+ 286:	e2 f7       	brpl	.-8      	; 0x280 <DIO_u8SetPinDirection+0x1c2>
+ 288:	84 2b       	or	r24, r20
+ 28a:	8c 93       	st	X, r24
+ 28c:	39 c0       	rjmp	.+114    	; 0x300 <DIO_u8SetPinDirection+0x242>
+				}
+			break;
+			case DIO_u8_PORTD:
+				switch(Copy_u8PinId)
+ 28e:	8b 81       	ldd	r24, Y+3	; 0x03
+ 290:	28 2f       	mov	r18, r24
+ 292:	30 e0       	ldi	r19, 0x00	; 0
+ 294:	3e 83       	std	Y+6, r19	; 0x06
+ 296:	2d 83       	std	Y+5, r18	; 0x05
+ 298:	8d 81       	ldd	r24, Y+5	; 0x05
+ 29a:	9e 81       	ldd	r25, Y+6	; 0x06
+ 29c:	00 97       	sbiw	r24, 0x00	; 0
+ 29e:	31 f0       	breq	.+12     	; 0x2ac <DIO_u8SetPinDirection+0x1ee>
+ 2a0:	2d 81       	ldd	r18, Y+5	; 0x05
+ 2a2:	3e 81       	ldd	r19, Y+6	; 0x06
+ 2a4:	21 30       	cpi	r18, 0x01	; 1
+ 2a6:	31 05       	cpc	r19, r1
+ 2a8:	b1 f0       	breq	.+44     	; 0x2d6 <DIO_u8SetPinDirection+0x218>
+ 2aa:	2a c0       	rjmp	.+84     	; 0x300 <DIO_u8SetPinDirection+0x242>
+				{
+					case DIO_u8_INPUT:CLR_BIT(DIO_u8_DDRD_REG,Copy_u8PinId);break;
+ 2ac:	a1 e3       	ldi	r26, 0x31	; 49
+ 2ae:	b0 e0       	ldi	r27, 0x00	; 0
+ 2b0:	e1 e3       	ldi	r30, 0x31	; 49
+ 2b2:	f0 e0       	ldi	r31, 0x00	; 0
+ 2b4:	80 81       	ld	r24, Z
+ 2b6:	48 2f       	mov	r20, r24
+ 2b8:	8b 81       	ldd	r24, Y+3	; 0x03
+ 2ba:	28 2f       	mov	r18, r24
+ 2bc:	30 e0       	ldi	r19, 0x00	; 0
+ 2be:	81 e0       	ldi	r24, 0x01	; 1
+ 2c0:	90 e0       	ldi	r25, 0x00	; 0
+ 2c2:	02 2e       	mov	r0, r18
+ 2c4:	02 c0       	rjmp	.+4      	; 0x2ca <DIO_u8SetPinDirection+0x20c>
+ 2c6:	88 0f       	add	r24, r24
+ 2c8:	99 1f       	adc	r25, r25
+ 2ca:	0a 94       	dec	r0
+ 2cc:	e2 f7       	brpl	.-8      	; 0x2c6 <DIO_u8SetPinDirection+0x208>
+ 2ce:	80 95       	com	r24
+ 2d0:	84 23       	and	r24, r20
+ 2d2:	8c 93       	st	X, r24
+ 2d4:	15 c0       	rjmp	.+42     	; 0x300 <DIO_u8SetPinDirection+0x242>
+					case DIO_u8_OUTPUT:SET_BIT(DIO_u8_DDRD_REG,Copy_u8PinId);break;
+ 2d6:	a1 e3       	ldi	r26, 0x31	; 49
+ 2d8:	b0 e0       	ldi	r27, 0x00	; 0
+ 2da:	e1 e3       	ldi	r30, 0x31	; 49
+ 2dc:	f0 e0       	ldi	r31, 0x00	; 0
+ 2de:	80 81       	ld	r24, Z
+ 2e0:	48 2f       	mov	r20, r24
+ 2e2:	8b 81       	ldd	r24, Y+3	; 0x03
+ 2e4:	28 2f       	mov	r18, r24
+ 2e6:	30 e0       	ldi	r19, 0x00	; 0
+ 2e8:	81 e0       	ldi	r24, 0x01	; 1
+ 2ea:	90 e0       	ldi	r25, 0x00	; 0
+ 2ec:	02 2e       	mov	r0, r18
+ 2ee:	02 c0       	rjmp	.+4      	; 0x2f4 <DIO_u8SetPinDirection+0x236>
+ 2f0:	88 0f       	add	r24, r24
+ 2f2:	99 1f       	adc	r25, r25
+ 2f4:	0a 94       	dec	r0
+ 2f6:	e2 f7       	brpl	.-8      	; 0x2f0 <DIO_u8SetPinDirection+0x232>
+ 2f8:	84 2b       	or	r24, r20
+ 2fa:	8c 93       	st	X, r24
+ 2fc:	01 c0       	rjmp	.+2      	; 0x300 <DIO_u8SetPinDirection+0x242>
+			break;
+		}
+	}
+	else
+	{
+		Local_u8ErrorState = STD_TYPES_NOK;
+ 2fe:	19 82       	std	Y+1, r1	; 0x01
+	}
+	return Local_u8ErrorState;
+ 300:	89 81       	ldd	r24, Y+1	; 0x01
+}
+ 302:	2e 96       	adiw	r28, 0x0e	; 14
+ 304:	0f b6       	in	r0, 0x3f	; 63
+ 306:	f8 94       	cli
+ 308:	de bf       	out	0x3e, r29	; 62
+ 30a:	0f be       	out	0x3f, r0	; 63
+ 30c:	cd bf       	out	0x3d, r28	; 61
+ 30e:	cf 91       	pop	r28
+ 310:	df 91       	pop	r29
+ 312:	08 95       	ret
+
+00000314 <DIO_u8SetPinValue>:
+
+u8 DIO_u8SetPinValue(u8 Copy_u8PortId, u8 Copy_u8PinId, u8 Copy_u8PinValue)
+{
+ 314:	df 93       	push	r29
+ 316:	cf 93       	push	r28
+ 318:	cd b7       	in	r28, 0x3d	; 61
+ 31a:	de b7       	in	r29, 0x3e	; 62
+ 31c:	2e 97       	sbiw	r28, 0x0e	; 14
+ 31e:	0f b6       	in	r0, 0x3f	; 63
+ 320:	f8 94       	cli
+ 322:	de bf       	out	0x3e, r29	; 62
+ 324:	0f be       	out	0x3f, r0	; 63
+ 326:	cd bf       	out	0x3d, r28	; 61
+ 328:	8a 83       	std	Y+2, r24	; 0x02
+ 32a:	6b 83       	std	Y+3, r22	; 0x03
+ 32c:	4c 83       	std	Y+4, r20	; 0x04
+	u8 Local_u8ErrorState = STD_TYPES_OK;
+ 32e:	81 e0       	ldi	r24, 0x01	; 1
+ 330:	89 83       	std	Y+1, r24	; 0x01
+	if(Copy_u8PinId <= DIO_u8_PIN7)
+ 332:	8b 81       	ldd	r24, Y+3	; 0x03
+ 334:	88 30       	cpi	r24, 0x08	; 8
+ 336:	08 f0       	brcs	.+2      	; 0x33a <DIO_u8SetPinValue+0x26>
+ 338:	0c c1       	rjmp	.+536    	; 0x552 <DIO_u8SetPinValue+0x23e>
+	{
+		switch(Copy_u8PortId)
+ 33a:	8a 81       	ldd	r24, Y+2	; 0x02
+ 33c:	28 2f       	mov	r18, r24
+ 33e:	30 e0       	ldi	r19, 0x00	; 0
+ 340:	3e 87       	std	Y+14, r19	; 0x0e
+ 342:	2d 87       	std	Y+13, r18	; 0x0d
+ 344:	8d 85       	ldd	r24, Y+13	; 0x0d
+ 346:	9e 85       	ldd	r25, Y+14	; 0x0e
+ 348:	81 30       	cpi	r24, 0x01	; 1
+ 34a:	91 05       	cpc	r25, r1
+ 34c:	09 f4       	brne	.+2      	; 0x350 <DIO_u8SetPinValue+0x3c>
+ 34e:	51 c0       	rjmp	.+162    	; 0x3f2 <DIO_u8SetPinValue+0xde>
+ 350:	2d 85       	ldd	r18, Y+13	; 0x0d
+ 352:	3e 85       	ldd	r19, Y+14	; 0x0e
+ 354:	22 30       	cpi	r18, 0x02	; 2
+ 356:	31 05       	cpc	r19, r1
+ 358:	2c f4       	brge	.+10     	; 0x364 <DIO_u8SetPinValue+0x50>
+ 35a:	8d 85       	ldd	r24, Y+13	; 0x0d
+ 35c:	9e 85       	ldd	r25, Y+14	; 0x0e
+ 35e:	00 97       	sbiw	r24, 0x00	; 0
+ 360:	71 f0       	breq	.+28     	; 0x37e <DIO_u8SetPinValue+0x6a>
+ 362:	f5 c0       	rjmp	.+490    	; 0x54e <DIO_u8SetPinValue+0x23a>
+ 364:	2d 85       	ldd	r18, Y+13	; 0x0d
+ 366:	3e 85       	ldd	r19, Y+14	; 0x0e
+ 368:	22 30       	cpi	r18, 0x02	; 2
+ 36a:	31 05       	cpc	r19, r1
+ 36c:	09 f4       	brne	.+2      	; 0x370 <DIO_u8SetPinValue+0x5c>
+ 36e:	7b c0       	rjmp	.+246    	; 0x466 <DIO_u8SetPinValue+0x152>
+ 370:	8d 85       	ldd	r24, Y+13	; 0x0d
+ 372:	9e 85       	ldd	r25, Y+14	; 0x0e
+ 374:	83 30       	cpi	r24, 0x03	; 3
+ 376:	91 05       	cpc	r25, r1
+ 378:	09 f4       	brne	.+2      	; 0x37c <DIO_u8SetPinValue+0x68>
+ 37a:	af c0       	rjmp	.+350    	; 0x4da <DIO_u8SetPinValue+0x1c6>
+ 37c:	e8 c0       	rjmp	.+464    	; 0x54e <DIO_u8SetPinValue+0x23a>
+		{
+			case DIO_u8_PORTA:
+				switch(Copy_u8PinValue)
+ 37e:	8c 81       	ldd	r24, Y+4	; 0x04
+ 380:	28 2f       	mov	r18, r24
+ 382:	30 e0       	ldi	r19, 0x00	; 0
+ 384:	3c 87       	std	Y+12, r19	; 0x0c
+ 386:	2b 87       	std	Y+11, r18	; 0x0b
+ 388:	8b 85       	ldd	r24, Y+11	; 0x0b
+ 38a:	9c 85       	ldd	r25, Y+12	; 0x0c
+ 38c:	00 97       	sbiw	r24, 0x00	; 0
+ 38e:	31 f0       	breq	.+12     	; 0x39c <DIO_u8SetPinValue+0x88>
+ 390:	2b 85       	ldd	r18, Y+11	; 0x0b
+ 392:	3c 85       	ldd	r19, Y+12	; 0x0c
+ 394:	21 30       	cpi	r18, 0x01	; 1
+ 396:	31 05       	cpc	r19, r1
+ 398:	b1 f0       	breq	.+44     	; 0x3c6 <DIO_u8SetPinValue+0xb2>
+ 39a:	29 c0       	rjmp	.+82     	; 0x3ee <DIO_u8SetPinValue+0xda>
+				{
+					case DIO_u8_LOW:CLR_BIT(DIO_u8_PORTA_REG,Copy_u8PinId);break;
+ 39c:	ab e3       	ldi	r26, 0x3B	; 59
+ 39e:	b0 e0       	ldi	r27, 0x00	; 0
+ 3a0:	eb e3       	ldi	r30, 0x3B	; 59
+ 3a2:	f0 e0       	ldi	r31, 0x00	; 0
+ 3a4:	80 81       	ld	r24, Z
+ 3a6:	48 2f       	mov	r20, r24
+ 3a8:	8b 81       	ldd	r24, Y+3	; 0x03
+ 3aa:	28 2f       	mov	r18, r24
+ 3ac:	30 e0       	ldi	r19, 0x00	; 0
+ 3ae:	81 e0       	ldi	r24, 0x01	; 1
+ 3b0:	90 e0       	ldi	r25, 0x00	; 0
+ 3b2:	02 2e       	mov	r0, r18
+ 3b4:	02 c0       	rjmp	.+4      	; 0x3ba <DIO_u8SetPinValue+0xa6>
+ 3b6:	88 0f       	add	r24, r24
+ 3b8:	99 1f       	adc	r25, r25
+ 3ba:	0a 94       	dec	r0
+ 3bc:	e2 f7       	brpl	.-8      	; 0x3b6 <DIO_u8SetPinValue+0xa2>
+ 3be:	80 95       	com	r24
+ 3c0:	84 23       	and	r24, r20
+ 3c2:	8c 93       	st	X, r24
+ 3c4:	c7 c0       	rjmp	.+398    	; 0x554 <DIO_u8SetPinValue+0x240>
+					case DIO_u8_HIGH:SET_BIT(DIO_u8_PORTA_REG,Copy_u8PinId);break;
+ 3c6:	ab e3       	ldi	r26, 0x3B	; 59
+ 3c8:	b0 e0       	ldi	r27, 0x00	; 0
+ 3ca:	eb e3       	ldi	r30, 0x3B	; 59
+ 3cc:	f0 e0       	ldi	r31, 0x00	; 0
+ 3ce:	80 81       	ld	r24, Z
+ 3d0:	48 2f       	mov	r20, r24
+ 3d2:	8b 81       	ldd	r24, Y+3	; 0x03
+ 3d4:	28 2f       	mov	r18, r24
+ 3d6:	30 e0       	ldi	r19, 0x00	; 0
+ 3d8:	81 e0       	ldi	r24, 0x01	; 1
+ 3da:	90 e0       	ldi	r25, 0x00	; 0
+ 3dc:	02 2e       	mov	r0, r18
+ 3de:	02 c0       	rjmp	.+4      	; 0x3e4 <DIO_u8SetPinValue+0xd0>
+ 3e0:	88 0f       	add	r24, r24
+ 3e2:	99 1f       	adc	r25, r25
+ 3e4:	0a 94       	dec	r0
+ 3e6:	e2 f7       	brpl	.-8      	; 0x3e0 <DIO_u8SetPinValue+0xcc>
+ 3e8:	84 2b       	or	r24, r20
+ 3ea:	8c 93       	st	X, r24
+ 3ec:	b3 c0       	rjmp	.+358    	; 0x554 <DIO_u8SetPinValue+0x240>
+					default: Local_u8ErrorState = STD_TYPES_NOK;
+ 3ee:	19 82       	std	Y+1, r1	; 0x01
+ 3f0:	b1 c0       	rjmp	.+354    	; 0x554 <DIO_u8SetPinValue+0x240>
+				}
+			break;
+			case DIO_u8_PORTB:
+				switch(Copy_u8PinValue)
+ 3f2:	8c 81       	ldd	r24, Y+4	; 0x04
+ 3f4:	28 2f       	mov	r18, r24
+ 3f6:	30 e0       	ldi	r19, 0x00	; 0
+ 3f8:	3a 87       	std	Y+10, r19	; 0x0a
+ 3fa:	29 87       	std	Y+9, r18	; 0x09
+ 3fc:	89 85       	ldd	r24, Y+9	; 0x09
+ 3fe:	9a 85       	ldd	r25, Y+10	; 0x0a
+ 400:	00 97       	sbiw	r24, 0x00	; 0
+ 402:	31 f0       	breq	.+12     	; 0x410 <DIO_u8SetPinValue+0xfc>
+ 404:	29 85       	ldd	r18, Y+9	; 0x09
+ 406:	3a 85       	ldd	r19, Y+10	; 0x0a
+ 408:	21 30       	cpi	r18, 0x01	; 1
+ 40a:	31 05       	cpc	r19, r1
+ 40c:	b1 f0       	breq	.+44     	; 0x43a <DIO_u8SetPinValue+0x126>
+ 40e:	29 c0       	rjmp	.+82     	; 0x462 <DIO_u8SetPinValue+0x14e>
+				{
+					case DIO_u8_LOW:CLR_BIT(DIO_u8_PORTB_REG,Copy_u8PinId);break;
+ 410:	a8 e3       	ldi	r26, 0x38	; 56
+ 412:	b0 e0       	ldi	r27, 0x00	; 0
+ 414:	e8 e3       	ldi	r30, 0x38	; 56
+ 416:	f0 e0       	ldi	r31, 0x00	; 0
+ 418:	80 81       	ld	r24, Z
+ 41a:	48 2f       	mov	r20, r24
+ 41c:	8b 81       	ldd	r24, Y+3	; 0x03
+ 41e:	28 2f       	mov	r18, r24
+ 420:	30 e0       	ldi	r19, 0x00	; 0
+ 422:	81 e0       	ldi	r24, 0x01	; 1
+ 424:	90 e0       	ldi	r25, 0x00	; 0
+ 426:	02 2e       	mov	r0, r18
+ 428:	02 c0       	rjmp	.+4      	; 0x42e <DIO_u8SetPinValue+0x11a>
+ 42a:	88 0f       	add	r24, r24
+ 42c:	99 1f       	adc	r25, r25
+ 42e:	0a 94       	dec	r0
+ 430:	e2 f7       	brpl	.-8      	; 0x42a <DIO_u8SetPinValue+0x116>
+ 432:	80 95       	com	r24
+ 434:	84 23       	and	r24, r20
+ 436:	8c 93       	st	X, r24
+ 438:	8d c0       	rjmp	.+282    	; 0x554 <DIO_u8SetPinValue+0x240>
+					case DIO_u8_HIGH:SET_BIT(DIO_u8_PORTB_REG,Copy_u8PinId);break;
+ 43a:	a8 e3       	ldi	r26, 0x38	; 56
+ 43c:	b0 e0       	ldi	r27, 0x00	; 0
+ 43e:	e8 e3       	ldi	r30, 0x38	; 56
+ 440:	f0 e0       	ldi	r31, 0x00	; 0
+ 442:	80 81       	ld	r24, Z
+ 444:	48 2f       	mov	r20, r24
+ 446:	8b 81       	ldd	r24, Y+3	; 0x03
+ 448:	28 2f       	mov	r18, r24
+ 44a:	30 e0       	ldi	r19, 0x00	; 0
+ 44c:	81 e0       	ldi	r24, 0x01	; 1
+ 44e:	90 e0       	ldi	r25, 0x00	; 0
+ 450:	02 2e       	mov	r0, r18
+ 452:	02 c0       	rjmp	.+4      	; 0x458 <DIO_u8SetPinValue+0x144>
+ 454:	88 0f       	add	r24, r24
+ 456:	99 1f       	adc	r25, r25
+ 458:	0a 94       	dec	r0
+ 45a:	e2 f7       	brpl	.-8      	; 0x454 <DIO_u8SetPinValue+0x140>
+ 45c:	84 2b       	or	r24, r20
+ 45e:	8c 93       	st	X, r24
+ 460:	79 c0       	rjmp	.+242    	; 0x554 <DIO_u8SetPinValue+0x240>
+					default: Local_u8ErrorState = STD_TYPES_NOK;
+ 462:	19 82       	std	Y+1, r1	; 0x01
+ 464:	77 c0       	rjmp	.+238    	; 0x554 <DIO_u8SetPinValue+0x240>
+				}
+			break;
+			case DIO_u8_PORTC:
+				switch(Copy_u8PinValue)
+ 466:	8c 81       	ldd	r24, Y+4	; 0x04
+ 468:	28 2f       	mov	r18, r24
+ 46a:	30 e0       	ldi	r19, 0x00	; 0
+ 46c:	38 87       	std	Y+8, r19	; 0x08
+ 46e:	2f 83       	std	Y+7, r18	; 0x07
+ 470:	8f 81       	ldd	r24, Y+7	; 0x07
+ 472:	98 85       	ldd	r25, Y+8	; 0x08
+ 474:	00 97       	sbiw	r24, 0x00	; 0
+ 476:	31 f0       	breq	.+12     	; 0x484 <DIO_u8SetPinValue+0x170>
+ 478:	2f 81       	ldd	r18, Y+7	; 0x07
+ 47a:	38 85       	ldd	r19, Y+8	; 0x08
+ 47c:	21 30       	cpi	r18, 0x01	; 1
+ 47e:	31 05       	cpc	r19, r1
+ 480:	b1 f0       	breq	.+44     	; 0x4ae <DIO_u8SetPinValue+0x19a>
+ 482:	29 c0       	rjmp	.+82     	; 0x4d6 <DIO_u8SetPinValue+0x1c2>
+				{
+					case DIO_u8_LOW:CLR_BIT(DIO_u8_PORTC_REG,Copy_u8PinId);break;
+ 484:	a5 e3       	ldi	r26, 0x35	; 53
+ 486:	b0 e0       	ldi	r27, 0x00	; 0
+ 488:	e5 e3       	ldi	r30, 0x35	; 53
+ 48a:	f0 e0       	ldi	r31, 0x00	; 0
+ 48c:	80 81       	ld	r24, Z
+ 48e:	48 2f       	mov	r20, r24
+ 490:	8b 81       	ldd	r24, Y+3	; 0x03
+ 492:	28 2f       	mov	r18, r24
+ 494:	30 e0       	ldi	r19, 0x00	; 0
+ 496:	81 e0       	ldi	r24, 0x01	; 1
+ 498:	90 e0       	ldi	r25, 0x00	; 0
+ 49a:	02 2e       	mov	r0, r18
+ 49c:	02 c0       	rjmp	.+4      	; 0x4a2 <DIO_u8SetPinValue+0x18e>
+ 49e:	88 0f       	add	r24, r24
+ 4a0:	99 1f       	adc	r25, r25
+ 4a2:	0a 94       	dec	r0
+ 4a4:	e2 f7       	brpl	.-8      	; 0x49e <DIO_u8SetPinValue+0x18a>
+ 4a6:	80 95       	com	r24
+ 4a8:	84 23       	and	r24, r20
+ 4aa:	8c 93       	st	X, r24
+ 4ac:	53 c0       	rjmp	.+166    	; 0x554 <DIO_u8SetPinValue+0x240>
+					case DIO_u8_HIGH:SET_BIT(DIO_u8_PORTC_REG,Copy_u8PinId);break;
+ 4ae:	a5 e3       	ldi	r26, 0x35	; 53
+ 4b0:	b0 e0       	ldi	r27, 0x00	; 0
+ 4b2:	e5 e3       	ldi	r30, 0x35	; 53
+ 4b4:	f0 e0       	ldi	r31, 0x00	; 0
+ 4b6:	80 81       	ld	r24, Z
+ 4b8:	48 2f       	mov	r20, r24
+ 4ba:	8b 81       	ldd	r24, Y+3	; 0x03
+ 4bc:	28 2f       	mov	r18, r24
+ 4be:	30 e0       	ldi	r19, 0x00	; 0
+ 4c0:	81 e0       	ldi	r24, 0x01	; 1
+ 4c2:	90 e0       	ldi	r25, 0x00	; 0
+ 4c4:	02 2e       	mov	r0, r18
+ 4c6:	02 c0       	rjmp	.+4      	; 0x4cc <DIO_u8SetPinValue+0x1b8>
+ 4c8:	88 0f       	add	r24, r24
+ 4ca:	99 1f       	adc	r25, r25
+ 4cc:	0a 94       	dec	r0
+ 4ce:	e2 f7       	brpl	.-8      	; 0x4c8 <DIO_u8SetPinValue+0x1b4>
+ 4d0:	84 2b       	or	r24, r20
+ 4d2:	8c 93       	st	X, r24
+ 4d4:	3f c0       	rjmp	.+126    	; 0x554 <DIO_u8SetPinValue+0x240>
+					default: Local_u8ErrorState = STD_TYPES_NOK;
+ 4d6:	19 82       	std	Y+1, r1	; 0x01
+ 4d8:	3d c0       	rjmp	.+122    	; 0x554 <DIO_u8SetPinValue+0x240>
+				}
+			break;
+			case DIO_u8_PORTD:
+				switch(Copy_u8PinValue)
+ 4da:	8c 81       	ldd	r24, Y+4	; 0x04
+ 4dc:	28 2f       	mov	r18, r24
+ 4de:	30 e0       	ldi	r19, 0x00	; 0
+ 4e0:	3e 83       	std	Y+6, r19	; 0x06
+ 4e2:	2d 83       	std	Y+5, r18	; 0x05
+ 4e4:	8d 81       	ldd	r24, Y+5	; 0x05
+ 4e6:	9e 81       	ldd	r25, Y+6	; 0x06
+ 4e8:	00 97       	sbiw	r24, 0x00	; 0
+ 4ea:	31 f0       	breq	.+12     	; 0x4f8 <DIO_u8SetPinValue+0x1e4>
+ 4ec:	2d 81       	ldd	r18, Y+5	; 0x05
+ 4ee:	3e 81       	ldd	r19, Y+6	; 0x06
+ 4f0:	21 30       	cpi	r18, 0x01	; 1
+ 4f2:	31 05       	cpc	r19, r1
+ 4f4:	b1 f0       	breq	.+44     	; 0x522 <DIO_u8SetPinValue+0x20e>
+ 4f6:	29 c0       	rjmp	.+82     	; 0x54a <DIO_u8SetPinValue+0x236>
+				{
+					case DIO_u8_LOW:CLR_BIT(DIO_u8_PORTD_REG,Copy_u8PinId);break;
+ 4f8:	a2 e3       	ldi	r26, 0x32	; 50
+ 4fa:	b0 e0       	ldi	r27, 0x00	; 0
+ 4fc:	e2 e3       	ldi	r30, 0x32	; 50
+ 4fe:	f0 e0       	ldi	r31, 0x00	; 0
+ 500:	80 81       	ld	r24, Z
+ 502:	48 2f       	mov	r20, r24
+ 504:	8b 81       	ldd	r24, Y+3	; 0x03
+ 506:	28 2f       	mov	r18, r24
+ 508:	30 e0       	ldi	r19, 0x00	; 0
+ 50a:	81 e0       	ldi	r24, 0x01	; 1
+ 50c:	90 e0       	ldi	r25, 0x00	; 0
+ 50e:	02 2e       	mov	r0, r18
+ 510:	02 c0       	rjmp	.+4      	; 0x516 <DIO_u8SetPinValue+0x202>
+ 512:	88 0f       	add	r24, r24
+ 514:	99 1f       	adc	r25, r25
+ 516:	0a 94       	dec	r0
+ 518:	e2 f7       	brpl	.-8      	; 0x512 <DIO_u8SetPinValue+0x1fe>
+ 51a:	80 95       	com	r24
+ 51c:	84 23       	and	r24, r20
+ 51e:	8c 93       	st	X, r24
+ 520:	19 c0       	rjmp	.+50     	; 0x554 <DIO_u8SetPinValue+0x240>
+					case DIO_u8_HIGH:SET_BIT(DIO_u8_PORTD_REG,Copy_u8PinId);break;
+ 522:	a2 e3       	ldi	r26, 0x32	; 50
+ 524:	b0 e0       	ldi	r27, 0x00	; 0
+ 526:	e2 e3       	ldi	r30, 0x32	; 50
+ 528:	f0 e0       	ldi	r31, 0x00	; 0
+ 52a:	80 81       	ld	r24, Z
+ 52c:	48 2f       	mov	r20, r24
+ 52e:	8b 81       	ldd	r24, Y+3	; 0x03
+ 530:	28 2f       	mov	r18, r24
+ 532:	30 e0       	ldi	r19, 0x00	; 0
+ 534:	81 e0       	ldi	r24, 0x01	; 1
+ 536:	90 e0       	ldi	r25, 0x00	; 0
+ 538:	02 2e       	mov	r0, r18
+ 53a:	02 c0       	rjmp	.+4      	; 0x540 <DIO_u8SetPinValue+0x22c>
+ 53c:	88 0f       	add	r24, r24
+ 53e:	99 1f       	adc	r25, r25
+ 540:	0a 94       	dec	r0
+ 542:	e2 f7       	brpl	.-8      	; 0x53c <DIO_u8SetPinValue+0x228>
+ 544:	84 2b       	or	r24, r20
+ 546:	8c 93       	st	X, r24
+ 548:	05 c0       	rjmp	.+10     	; 0x554 <DIO_u8SetPinValue+0x240>
+					default: Local_u8ErrorState = STD_TYPES_NOK;
+ 54a:	19 82       	std	Y+1, r1	; 0x01
+ 54c:	03 c0       	rjmp	.+6      	; 0x554 <DIO_u8SetPinValue+0x240>
+				}
+			break;
+			default:
+				Local_u8ErrorState = STD_TYPES_NOK;
+ 54e:	19 82       	std	Y+1, r1	; 0x01
+ 550:	01 c0       	rjmp	.+2      	; 0x554 <DIO_u8SetPinValue+0x240>
+		}
+	}
+	else
+	{
+		Local_u8ErrorState = STD_TYPES_NOK;
+ 552:	19 82       	std	Y+1, r1	; 0x01
+	}
+	return Local_u8ErrorState;
+ 554:	89 81       	ldd	r24, Y+1	; 0x01
+}
+ 556:	2e 96       	adiw	r28, 0x0e	; 14
+ 558:	0f b6       	in	r0, 0x3f	; 63
+ 55a:	f8 94       	cli
+ 55c:	de bf       	out	0x3e, r29	; 62
+ 55e:	0f be       	out	0x3f, r0	; 63
+ 560:	cd bf       	out	0x3d, r28	; 61
+ 562:	cf 91       	pop	r28
+ 564:	df 91       	pop	r29
+ 566:	08 95       	ret
+
+00000568 <DIO_u8GetPinValue>:
+
+u8 DIO_u8GetPinValue(u8 Copy_u8PortId, u8 Copy_u8PinId, u8 *Copy_pu8ReturnedPinValue)
+{
+ 568:	df 93       	push	r29
+ 56a:	cf 93       	push	r28
+ 56c:	cd b7       	in	r28, 0x3d	; 61
+ 56e:	de b7       	in	r29, 0x3e	; 62
+ 570:	28 97       	sbiw	r28, 0x08	; 8
+ 572:	0f b6       	in	r0, 0x3f	; 63
+ 574:	f8 94       	cli
+ 576:	de bf       	out	0x3e, r29	; 62
+ 578:	0f be       	out	0x3f, r0	; 63
+ 57a:	cd bf       	out	0x3d, r28	; 61
+ 57c:	8b 83       	std	Y+3, r24	; 0x03
+ 57e:	6c 83       	std	Y+4, r22	; 0x04
+ 580:	5e 83       	std	Y+6, r21	; 0x06
+ 582:	4d 83       	std	Y+5, r20	; 0x05
+	u8 Local_u8ErrorState = STD_TYPES_OK;
+ 584:	81 e0       	ldi	r24, 0x01	; 1
+ 586:	8a 83       	std	Y+2, r24	; 0x02
+	u8 Local_u8PinValue;
+	if((Copy_u8PortId <= DIO_u8_PORTD ) && (Copy_u8PinId <= DIO_u8_PIN7) && (Copy_pu8ReturnedPinValue != NULL))
+ 588:	8b 81       	ldd	r24, Y+3	; 0x03
+ 58a:	84 30       	cpi	r24, 0x04	; 4
+ 58c:	08 f0       	brcs	.+2      	; 0x590 <DIO_u8GetPinValue+0x28>
+ 58e:	a1 c0       	rjmp	.+322    	; 0x6d2 <DIO_u8GetPinValue+0x16a>
+ 590:	8c 81       	ldd	r24, Y+4	; 0x04
+ 592:	88 30       	cpi	r24, 0x08	; 8
+ 594:	08 f0       	brcs	.+2      	; 0x598 <DIO_u8GetPinValue+0x30>
+ 596:	9d c0       	rjmp	.+314    	; 0x6d2 <DIO_u8GetPinValue+0x16a>
+ 598:	8d 81       	ldd	r24, Y+5	; 0x05
+ 59a:	9e 81       	ldd	r25, Y+6	; 0x06
+ 59c:	00 97       	sbiw	r24, 0x00	; 0
+ 59e:	09 f4       	brne	.+2      	; 0x5a2 <DIO_u8GetPinValue+0x3a>
+ 5a0:	98 c0       	rjmp	.+304    	; 0x6d2 <DIO_u8GetPinValue+0x16a>
+	{
+		switch(Copy_u8PortId)
+ 5a2:	8b 81       	ldd	r24, Y+3	; 0x03
+ 5a4:	28 2f       	mov	r18, r24
+ 5a6:	30 e0       	ldi	r19, 0x00	; 0
+ 5a8:	38 87       	std	Y+8, r19	; 0x08
+ 5aa:	2f 83       	std	Y+7, r18	; 0x07
+ 5ac:	4f 81       	ldd	r20, Y+7	; 0x07
+ 5ae:	58 85       	ldd	r21, Y+8	; 0x08
+ 5b0:	41 30       	cpi	r20, 0x01	; 1
+ 5b2:	51 05       	cpc	r21, r1
+ 5b4:	a9 f1       	breq	.+106    	; 0x620 <DIO_u8GetPinValue+0xb8>
+ 5b6:	8f 81       	ldd	r24, Y+7	; 0x07
+ 5b8:	98 85       	ldd	r25, Y+8	; 0x08
+ 5ba:	82 30       	cpi	r24, 0x02	; 2
+ 5bc:	91 05       	cpc	r25, r1
+ 5be:	34 f4       	brge	.+12     	; 0x5cc <DIO_u8GetPinValue+0x64>
+ 5c0:	2f 81       	ldd	r18, Y+7	; 0x07
+ 5c2:	38 85       	ldd	r19, Y+8	; 0x08
+ 5c4:	21 15       	cp	r18, r1
+ 5c6:	31 05       	cpc	r19, r1
+ 5c8:	71 f0       	breq	.+28     	; 0x5e6 <DIO_u8GetPinValue+0x7e>
+ 5ca:	81 c0       	rjmp	.+258    	; 0x6ce <DIO_u8GetPinValue+0x166>
+ 5cc:	4f 81       	ldd	r20, Y+7	; 0x07
+ 5ce:	58 85       	ldd	r21, Y+8	; 0x08
+ 5d0:	42 30       	cpi	r20, 0x02	; 2
+ 5d2:	51 05       	cpc	r21, r1
+ 5d4:	09 f4       	brne	.+2      	; 0x5d8 <DIO_u8GetPinValue+0x70>
+ 5d6:	41 c0       	rjmp	.+130    	; 0x65a <DIO_u8GetPinValue+0xf2>
+ 5d8:	8f 81       	ldd	r24, Y+7	; 0x07
+ 5da:	98 85       	ldd	r25, Y+8	; 0x08
+ 5dc:	83 30       	cpi	r24, 0x03	; 3
+ 5de:	91 05       	cpc	r25, r1
+ 5e0:	09 f4       	brne	.+2      	; 0x5e4 <DIO_u8GetPinValue+0x7c>
+ 5e2:	58 c0       	rjmp	.+176    	; 0x694 <DIO_u8GetPinValue+0x12c>
+ 5e4:	74 c0       	rjmp	.+232    	; 0x6ce <DIO_u8GetPinValue+0x166>
+		{
+			case DIO_u8_PORTA: Local_u8PinValue = GET_BIT(DIO_u8_PINA_REG,Copy_u8PinId);
+ 5e6:	e9 e3       	ldi	r30, 0x39	; 57
+ 5e8:	f0 e0       	ldi	r31, 0x00	; 0
+ 5ea:	80 81       	ld	r24, Z
+ 5ec:	28 2f       	mov	r18, r24
+ 5ee:	30 e0       	ldi	r19, 0x00	; 0
+ 5f0:	8c 81       	ldd	r24, Y+4	; 0x04
+ 5f2:	88 2f       	mov	r24, r24
+ 5f4:	90 e0       	ldi	r25, 0x00	; 0
+ 5f6:	a9 01       	movw	r20, r18
+ 5f8:	02 c0       	rjmp	.+4      	; 0x5fe <DIO_u8GetPinValue+0x96>
+ 5fa:	55 95       	asr	r21
+ 5fc:	47 95       	ror	r20
+ 5fe:	8a 95       	dec	r24
+ 600:	e2 f7       	brpl	.-8      	; 0x5fa <DIO_u8GetPinValue+0x92>
+ 602:	ca 01       	movw	r24, r20
+ 604:	81 70       	andi	r24, 0x01	; 1
+ 606:	89 83       	std	Y+1, r24	; 0x01
+				if(Local_u8PinValue == 0)
+ 608:	89 81       	ldd	r24, Y+1	; 0x01
+ 60a:	88 23       	and	r24, r24
+ 60c:	21 f4       	brne	.+8      	; 0x616 <DIO_u8GetPinValue+0xae>
+				{
+					*Copy_pu8ReturnedPinValue = DIO_u8_LOW;
+ 60e:	ed 81       	ldd	r30, Y+5	; 0x05
+ 610:	fe 81       	ldd	r31, Y+6	; 0x06
+ 612:	10 82       	st	Z, r1
+ 614:	5f c0       	rjmp	.+190    	; 0x6d4 <DIO_u8GetPinValue+0x16c>
+				}
+				else
+				{
+					*Copy_pu8ReturnedPinValue = DIO_u8_HIGH;
+ 616:	ed 81       	ldd	r30, Y+5	; 0x05
+ 618:	fe 81       	ldd	r31, Y+6	; 0x06
+ 61a:	81 e0       	ldi	r24, 0x01	; 1
+ 61c:	80 83       	st	Z, r24
+ 61e:	5a c0       	rjmp	.+180    	; 0x6d4 <DIO_u8GetPinValue+0x16c>
+				}
+			break;
+			case DIO_u8_PORTB: Local_u8PinValue = GET_BIT(DIO_u8_PINB_REG,Copy_u8PinId);
+ 620:	e6 e3       	ldi	r30, 0x36	; 54
+ 622:	f0 e0       	ldi	r31, 0x00	; 0
+ 624:	80 81       	ld	r24, Z
+ 626:	28 2f       	mov	r18, r24
+ 628:	30 e0       	ldi	r19, 0x00	; 0
+ 62a:	8c 81       	ldd	r24, Y+4	; 0x04
+ 62c:	88 2f       	mov	r24, r24
+ 62e:	90 e0       	ldi	r25, 0x00	; 0
+ 630:	a9 01       	movw	r20, r18
+ 632:	02 c0       	rjmp	.+4      	; 0x638 <DIO_u8GetPinValue+0xd0>
+ 634:	55 95       	asr	r21
+ 636:	47 95       	ror	r20
+ 638:	8a 95       	dec	r24
+ 63a:	e2 f7       	brpl	.-8      	; 0x634 <DIO_u8GetPinValue+0xcc>
+ 63c:	ca 01       	movw	r24, r20
+ 63e:	81 70       	andi	r24, 0x01	; 1
+ 640:	89 83       	std	Y+1, r24	; 0x01
+				if(Local_u8PinValue == 0)
+ 642:	89 81       	ldd	r24, Y+1	; 0x01
+ 644:	88 23       	and	r24, r24
+ 646:	21 f4       	brne	.+8      	; 0x650 <DIO_u8GetPinValue+0xe8>
+				{
+					*Copy_pu8ReturnedPinValue = DIO_u8_LOW;
+ 648:	ed 81       	ldd	r30, Y+5	; 0x05
+ 64a:	fe 81       	ldd	r31, Y+6	; 0x06
+ 64c:	10 82       	st	Z, r1
+ 64e:	42 c0       	rjmp	.+132    	; 0x6d4 <DIO_u8GetPinValue+0x16c>
+				}
+				else
+				{
+					*Copy_pu8ReturnedPinValue = DIO_u8_HIGH;
+ 650:	ed 81       	ldd	r30, Y+5	; 0x05
+ 652:	fe 81       	ldd	r31, Y+6	; 0x06
+ 654:	81 e0       	ldi	r24, 0x01	; 1
+ 656:	80 83       	st	Z, r24
+ 658:	3d c0       	rjmp	.+122    	; 0x6d4 <DIO_u8GetPinValue+0x16c>
+				}
+			break;
+			case DIO_u8_PORTC: Local_u8PinValue = GET_BIT(DIO_u8_PINC_REG,Copy_u8PinId);
+ 65a:	e3 e3       	ldi	r30, 0x33	; 51
+ 65c:	f0 e0       	ldi	r31, 0x00	; 0
+ 65e:	80 81       	ld	r24, Z
+ 660:	28 2f       	mov	r18, r24
+ 662:	30 e0       	ldi	r19, 0x00	; 0
+ 664:	8c 81       	ldd	r24, Y+4	; 0x04
+ 666:	88 2f       	mov	r24, r24
+ 668:	90 e0       	ldi	r25, 0x00	; 0
+ 66a:	a9 01       	movw	r20, r18
+ 66c:	02 c0       	rjmp	.+4      	; 0x672 <DIO_u8GetPinValue+0x10a>
+ 66e:	55 95       	asr	r21
+ 670:	47 95       	ror	r20
+ 672:	8a 95       	dec	r24
+ 674:	e2 f7       	brpl	.-8      	; 0x66e <DIO_u8GetPinValue+0x106>
+ 676:	ca 01       	movw	r24, r20
+ 678:	81 70       	andi	r24, 0x01	; 1
+ 67a:	89 83       	std	Y+1, r24	; 0x01
+				if(Local_u8PinValue == 0)
+ 67c:	89 81       	ldd	r24, Y+1	; 0x01
+ 67e:	88 23       	and	r24, r24
+ 680:	21 f4       	brne	.+8      	; 0x68a <DIO_u8GetPinValue+0x122>
+				{
+					*Copy_pu8ReturnedPinValue = DIO_u8_LOW;
+ 682:	ed 81       	ldd	r30, Y+5	; 0x05
+ 684:	fe 81       	ldd	r31, Y+6	; 0x06
+ 686:	10 82       	st	Z, r1
+ 688:	25 c0       	rjmp	.+74     	; 0x6d4 <DIO_u8GetPinValue+0x16c>
+				}
+				else
+				{
+					*Copy_pu8ReturnedPinValue = DIO_u8_HIGH;
+ 68a:	ed 81       	ldd	r30, Y+5	; 0x05
+ 68c:	fe 81       	ldd	r31, Y+6	; 0x06
+ 68e:	81 e0       	ldi	r24, 0x01	; 1
+ 690:	80 83       	st	Z, r24
+ 692:	20 c0       	rjmp	.+64     	; 0x6d4 <DIO_u8GetPinValue+0x16c>
+				}
+			break;
+			case DIO_u8_PORTD: Local_u8PinValue = GET_BIT(DIO_u8_PIND_REG,Copy_u8PinId);
+ 694:	e0 e3       	ldi	r30, 0x30	; 48
+ 696:	f0 e0       	ldi	r31, 0x00	; 0
+ 698:	80 81       	ld	r24, Z
+ 69a:	28 2f       	mov	r18, r24
+ 69c:	30 e0       	ldi	r19, 0x00	; 0
+ 69e:	8c 81       	ldd	r24, Y+4	; 0x04
+ 6a0:	88 2f       	mov	r24, r24
+ 6a2:	90 e0       	ldi	r25, 0x00	; 0
+ 6a4:	a9 01       	movw	r20, r18
+ 6a6:	02 c0       	rjmp	.+4      	; 0x6ac <DIO_u8GetPinValue+0x144>
+ 6a8:	55 95       	asr	r21
+ 6aa:	47 95       	ror	r20
+ 6ac:	8a 95       	dec	r24
+ 6ae:	e2 f7       	brpl	.-8      	; 0x6a8 <DIO_u8GetPinValue+0x140>
+ 6b0:	ca 01       	movw	r24, r20
+ 6b2:	81 70       	andi	r24, 0x01	; 1
+ 6b4:	89 83       	std	Y+1, r24	; 0x01
+				if(Local_u8PinValue == 0)
+ 6b6:	89 81       	ldd	r24, Y+1	; 0x01
+ 6b8:	88 23       	and	r24, r24
+ 6ba:	21 f4       	brne	.+8      	; 0x6c4 <DIO_u8GetPinValue+0x15c>
+				{
+					*Copy_pu8ReturnedPinValue = DIO_u8_LOW;
+ 6bc:	ed 81       	ldd	r30, Y+5	; 0x05
+ 6be:	fe 81       	ldd	r31, Y+6	; 0x06
+ 6c0:	10 82       	st	Z, r1
+ 6c2:	08 c0       	rjmp	.+16     	; 0x6d4 <DIO_u8GetPinValue+0x16c>
+				}
+				else
+				{
+					*Copy_pu8ReturnedPinValue = DIO_u8_HIGH;
+ 6c4:	ed 81       	ldd	r30, Y+5	; 0x05
+ 6c6:	fe 81       	ldd	r31, Y+6	; 0x06
+ 6c8:	81 e0       	ldi	r24, 0x01	; 1
+ 6ca:	80 83       	st	Z, r24
+ 6cc:	03 c0       	rjmp	.+6      	; 0x6d4 <DIO_u8GetPinValue+0x16c>
+				}
+			break;
+			default: Local_u8ErrorState = STD_TYPES_NOK;
+ 6ce:	1a 82       	std	Y+2, r1	; 0x02
+ 6d0:	01 c0       	rjmp	.+2      	; 0x6d4 <DIO_u8GetPinValue+0x16c>
+		}
+	}
+	else
+	{
+		Local_u8ErrorState = STD_TYPES_NOK;
+ 6d2:	1a 82       	std	Y+2, r1	; 0x02
+	}
+	return Local_u8ErrorState;
+ 6d4:	8a 81       	ldd	r24, Y+2	; 0x02
+}
+ 6d6:	28 96       	adiw	r28, 0x08	; 8
+ 6d8:	0f b6       	in	r0, 0x3f	; 63
+ 6da:	f8 94       	cli
+ 6dc:	de bf       	out	0x3e, r29	; 62
+ 6de:	0f be       	out	0x3f, r0	; 63
+ 6e0:	cd bf       	out	0x3d, r28	; 61
+ 6e2:	cf 91       	pop	r28
+ 6e4:	df 91       	pop	r29
+ 6e6:	08 95       	ret
+
+000006e8 <DIO_u8SetPortDirection>:
+
+u8 DIO_u8SetPortDirection(u8 Copy_u8PortId, u8 Copy_u8PortDirection)
+{
+ 6e8:	df 93       	push	r29
+ 6ea:	cf 93       	push	r28
+ 6ec:	cd b7       	in	r28, 0x3d	; 61
+ 6ee:	de b7       	in	r29, 0x3e	; 62
+ 6f0:	2d 97       	sbiw	r28, 0x0d	; 13
+ 6f2:	0f b6       	in	r0, 0x3f	; 63
+ 6f4:	f8 94       	cli
+ 6f6:	de bf       	out	0x3e, r29	; 62
+ 6f8:	0f be       	out	0x3f, r0	; 63
+ 6fa:	cd bf       	out	0x3d, r28	; 61
+ 6fc:	8a 83       	std	Y+2, r24	; 0x02
+ 6fe:	6b 83       	std	Y+3, r22	; 0x03
+	u8 Local_u8ErrorState = STD_TYPES_OK;
+ 700:	81 e0       	ldi	r24, 0x01	; 1
+ 702:	89 83       	std	Y+1, r24	; 0x01
+	if((Copy_u8PortDirection == DIO_u8_INPUT) || (Copy_u8PortDirection == DIO_u8_OUTPUT))
+ 704:	8b 81       	ldd	r24, Y+3	; 0x03
+ 706:	88 23       	and	r24, r24
+ 708:	21 f0       	breq	.+8      	; 0x712 <DIO_u8SetPortDirection+0x2a>
+ 70a:	8b 81       	ldd	r24, Y+3	; 0x03
+ 70c:	81 30       	cpi	r24, 0x01	; 1
+ 70e:	09 f0       	breq	.+2      	; 0x712 <DIO_u8SetPortDirection+0x2a>
+ 710:	82 c0       	rjmp	.+260    	; 0x816 <DIO_u8SetPortDirection+0x12e>
+	{
+		switch(Copy_u8PortId)
+ 712:	8a 81       	ldd	r24, Y+2	; 0x02
+ 714:	28 2f       	mov	r18, r24
+ 716:	30 e0       	ldi	r19, 0x00	; 0
+ 718:	3d 87       	std	Y+13, r19	; 0x0d
+ 71a:	2c 87       	std	Y+12, r18	; 0x0c
+ 71c:	8c 85       	ldd	r24, Y+12	; 0x0c
+ 71e:	9d 85       	ldd	r25, Y+13	; 0x0d
+ 720:	81 30       	cpi	r24, 0x01	; 1
+ 722:	91 05       	cpc	r25, r1
+ 724:	71 f1       	breq	.+92     	; 0x782 <DIO_u8SetPortDirection+0x9a>
+ 726:	2c 85       	ldd	r18, Y+12	; 0x0c
+ 728:	3d 85       	ldd	r19, Y+13	; 0x0d
+ 72a:	22 30       	cpi	r18, 0x02	; 2
+ 72c:	31 05       	cpc	r19, r1
+ 72e:	2c f4       	brge	.+10     	; 0x73a <DIO_u8SetPortDirection+0x52>
+ 730:	8c 85       	ldd	r24, Y+12	; 0x0c
+ 732:	9d 85       	ldd	r25, Y+13	; 0x0d
+ 734:	00 97       	sbiw	r24, 0x00	; 0
+ 736:	69 f0       	breq	.+26     	; 0x752 <DIO_u8SetPortDirection+0x6a>
+ 738:	6c c0       	rjmp	.+216    	; 0x812 <DIO_u8SetPortDirection+0x12a>
+ 73a:	2c 85       	ldd	r18, Y+12	; 0x0c
+ 73c:	3d 85       	ldd	r19, Y+13	; 0x0d
+ 73e:	22 30       	cpi	r18, 0x02	; 2
+ 740:	31 05       	cpc	r19, r1
+ 742:	b9 f1       	breq	.+110    	; 0x7b2 <DIO_u8SetPortDirection+0xca>
+ 744:	8c 85       	ldd	r24, Y+12	; 0x0c
+ 746:	9d 85       	ldd	r25, Y+13	; 0x0d
+ 748:	83 30       	cpi	r24, 0x03	; 3
+ 74a:	91 05       	cpc	r25, r1
+ 74c:	09 f4       	brne	.+2      	; 0x750 <DIO_u8SetPortDirection+0x68>
+ 74e:	49 c0       	rjmp	.+146    	; 0x7e2 <DIO_u8SetPortDirection+0xfa>
+ 750:	60 c0       	rjmp	.+192    	; 0x812 <DIO_u8SetPortDirection+0x12a>
+		{
+			case DIO_u8_PORTA:
+				switch(Copy_u8PortDirection)
+ 752:	8b 81       	ldd	r24, Y+3	; 0x03
+ 754:	28 2f       	mov	r18, r24
+ 756:	30 e0       	ldi	r19, 0x00	; 0
+ 758:	3b 87       	std	Y+11, r19	; 0x0b
+ 75a:	2a 87       	std	Y+10, r18	; 0x0a
+ 75c:	8a 85       	ldd	r24, Y+10	; 0x0a
+ 75e:	9b 85       	ldd	r25, Y+11	; 0x0b
+ 760:	00 97       	sbiw	r24, 0x00	; 0
+ 762:	31 f0       	breq	.+12     	; 0x770 <DIO_u8SetPortDirection+0x88>
+ 764:	2a 85       	ldd	r18, Y+10	; 0x0a
+ 766:	3b 85       	ldd	r19, Y+11	; 0x0b
+ 768:	21 30       	cpi	r18, 0x01	; 1
+ 76a:	31 05       	cpc	r19, r1
+ 76c:	29 f0       	breq	.+10     	; 0x778 <DIO_u8SetPortDirection+0x90>
+ 76e:	54 c0       	rjmp	.+168    	; 0x818 <DIO_u8SetPortDirection+0x130>
+				{
+					case DIO_u8_INPUT:DIO_u8_DDRA_REG = 0x00;break;
+ 770:	ea e3       	ldi	r30, 0x3A	; 58
+ 772:	f0 e0       	ldi	r31, 0x00	; 0
+ 774:	10 82       	st	Z, r1
+ 776:	50 c0       	rjmp	.+160    	; 0x818 <DIO_u8SetPortDirection+0x130>
+					case DIO_u8_OUTPUT:DIO_u8_DDRA_REG = 0xFF;break;
+ 778:	ea e3       	ldi	r30, 0x3A	; 58
+ 77a:	f0 e0       	ldi	r31, 0x00	; 0
+ 77c:	8f ef       	ldi	r24, 0xFF	; 255
+ 77e:	80 83       	st	Z, r24
+ 780:	4b c0       	rjmp	.+150    	; 0x818 <DIO_u8SetPortDirection+0x130>
+				}
+			break;
+			case DIO_u8_PORTB:
+				switch(Copy_u8PortDirection)
+ 782:	8b 81       	ldd	r24, Y+3	; 0x03
+ 784:	28 2f       	mov	r18, r24
+ 786:	30 e0       	ldi	r19, 0x00	; 0
+ 788:	39 87       	std	Y+9, r19	; 0x09
+ 78a:	28 87       	std	Y+8, r18	; 0x08
+ 78c:	88 85       	ldd	r24, Y+8	; 0x08
+ 78e:	99 85       	ldd	r25, Y+9	; 0x09
+ 790:	00 97       	sbiw	r24, 0x00	; 0
+ 792:	31 f0       	breq	.+12     	; 0x7a0 <DIO_u8SetPortDirection+0xb8>
+ 794:	28 85       	ldd	r18, Y+8	; 0x08
+ 796:	39 85       	ldd	r19, Y+9	; 0x09
+ 798:	21 30       	cpi	r18, 0x01	; 1
+ 79a:	31 05       	cpc	r19, r1
+ 79c:	29 f0       	breq	.+10     	; 0x7a8 <DIO_u8SetPortDirection+0xc0>
+ 79e:	3c c0       	rjmp	.+120    	; 0x818 <DIO_u8SetPortDirection+0x130>
+				{
+					case DIO_u8_INPUT:DIO_u8_DDRB_REG = 0x00;break;
+ 7a0:	e7 e3       	ldi	r30, 0x37	; 55
+ 7a2:	f0 e0       	ldi	r31, 0x00	; 0
+ 7a4:	10 82       	st	Z, r1
+ 7a6:	38 c0       	rjmp	.+112    	; 0x818 <DIO_u8SetPortDirection+0x130>
+					case DIO_u8_OUTPUT:DIO_u8_DDRB_REG = 0xFF;break;
+ 7a8:	e7 e3       	ldi	r30, 0x37	; 55
+ 7aa:	f0 e0       	ldi	r31, 0x00	; 0
+ 7ac:	8f ef       	ldi	r24, 0xFF	; 255
+ 7ae:	80 83       	st	Z, r24
+ 7b0:	33 c0       	rjmp	.+102    	; 0x818 <DIO_u8SetPortDirection+0x130>
+				}
+			break;
+			case DIO_u8_PORTC:
+				switch(Copy_u8PortDirection)
+ 7b2:	8b 81       	ldd	r24, Y+3	; 0x03
+ 7b4:	28 2f       	mov	r18, r24
+ 7b6:	30 e0       	ldi	r19, 0x00	; 0
+ 7b8:	3f 83       	std	Y+7, r19	; 0x07
+ 7ba:	2e 83       	std	Y+6, r18	; 0x06
+ 7bc:	8e 81       	ldd	r24, Y+6	; 0x06
+ 7be:	9f 81       	ldd	r25, Y+7	; 0x07
+ 7c0:	00 97       	sbiw	r24, 0x00	; 0
+ 7c2:	31 f0       	breq	.+12     	; 0x7d0 <DIO_u8SetPortDirection+0xe8>
+ 7c4:	2e 81       	ldd	r18, Y+6	; 0x06
+ 7c6:	3f 81       	ldd	r19, Y+7	; 0x07
+ 7c8:	21 30       	cpi	r18, 0x01	; 1
+ 7ca:	31 05       	cpc	r19, r1
+ 7cc:	29 f0       	breq	.+10     	; 0x7d8 <DIO_u8SetPortDirection+0xf0>
+ 7ce:	24 c0       	rjmp	.+72     	; 0x818 <DIO_u8SetPortDirection+0x130>
+				{
+					case DIO_u8_INPUT:DIO_u8_DDRC_REG = 0x00;break;
+ 7d0:	e4 e3       	ldi	r30, 0x34	; 52
+ 7d2:	f0 e0       	ldi	r31, 0x00	; 0
+ 7d4:	10 82       	st	Z, r1
+ 7d6:	20 c0       	rjmp	.+64     	; 0x818 <DIO_u8SetPortDirection+0x130>
+					case DIO_u8_OUTPUT:DIO_u8_DDRC_REG = 0xFF;break;
+ 7d8:	e4 e3       	ldi	r30, 0x34	; 52
+ 7da:	f0 e0       	ldi	r31, 0x00	; 0
+ 7dc:	8f ef       	ldi	r24, 0xFF	; 255
+ 7de:	80 83       	st	Z, r24
+ 7e0:	1b c0       	rjmp	.+54     	; 0x818 <DIO_u8SetPortDirection+0x130>
+				}
+			break;
+			case DIO_u8_PORTD:
+				switch(Copy_u8PortDirection)
+ 7e2:	8b 81       	ldd	r24, Y+3	; 0x03
+ 7e4:	28 2f       	mov	r18, r24
+ 7e6:	30 e0       	ldi	r19, 0x00	; 0
+ 7e8:	3d 83       	std	Y+5, r19	; 0x05
+ 7ea:	2c 83       	std	Y+4, r18	; 0x04
+ 7ec:	8c 81       	ldd	r24, Y+4	; 0x04
+ 7ee:	9d 81       	ldd	r25, Y+5	; 0x05
+ 7f0:	00 97       	sbiw	r24, 0x00	; 0
+ 7f2:	31 f0       	breq	.+12     	; 0x800 <DIO_u8SetPortDirection+0x118>
+ 7f4:	2c 81       	ldd	r18, Y+4	; 0x04
+ 7f6:	3d 81       	ldd	r19, Y+5	; 0x05
+ 7f8:	21 30       	cpi	r18, 0x01	; 1
+ 7fa:	31 05       	cpc	r19, r1
+ 7fc:	29 f0       	breq	.+10     	; 0x808 <DIO_u8SetPortDirection+0x120>
+ 7fe:	0c c0       	rjmp	.+24     	; 0x818 <DIO_u8SetPortDirection+0x130>
+				{
+					case DIO_u8_INPUT:DIO_u8_DDRD_REG = 0x00;break;
+ 800:	e1 e3       	ldi	r30, 0x31	; 49
+ 802:	f0 e0       	ldi	r31, 0x00	; 0
+ 804:	10 82       	st	Z, r1
+ 806:	08 c0       	rjmp	.+16     	; 0x818 <DIO_u8SetPortDirection+0x130>
+					case DIO_u8_OUTPUT:DIO_u8_DDRD_REG = 0xFF;break;
+ 808:	e1 e3       	ldi	r30, 0x31	; 49
+ 80a:	f0 e0       	ldi	r31, 0x00	; 0
+ 80c:	8f ef       	ldi	r24, 0xFF	; 255
+ 80e:	80 83       	st	Z, r24
+ 810:	03 c0       	rjmp	.+6      	; 0x818 <DIO_u8SetPortDirection+0x130>
+				}
+			break;
+			default:Local_u8ErrorState = STD_TYPES_NOK;
+ 812:	19 82       	std	Y+1, r1	; 0x01
+ 814:	01 c0       	rjmp	.+2      	; 0x818 <DIO_u8SetPortDirection+0x130>
+		}
+	}
+	else
+	{
+		Local_u8ErrorState = STD_TYPES_NOK;
+ 816:	19 82       	std	Y+1, r1	; 0x01
+	}
+	return Local_u8ErrorState;
+ 818:	89 81       	ldd	r24, Y+1	; 0x01
+}
+ 81a:	2d 96       	adiw	r28, 0x0d	; 13
+ 81c:	0f b6       	in	r0, 0x3f	; 63
+ 81e:	f8 94       	cli
+ 820:	de bf       	out	0x3e, r29	; 62
+ 822:	0f be       	out	0x3f, r0	; 63
+ 824:	cd bf       	out	0x3d, r28	; 61
+ 826:	cf 91       	pop	r28
+ 828:	df 91       	pop	r29
+ 82a:	08 95       	ret
+
+0000082c <DIO_u8SetPortValue>:
+
+u8 DIO_u8SetPortValue(u8 Copy_u8PortId, u8 Copy_u8PortValue)
+{
+ 82c:	df 93       	push	r29
+ 82e:	cf 93       	push	r28
+ 830:	00 d0       	rcall	.+0      	; 0x832 <DIO_u8SetPortValue+0x6>
+ 832:	00 d0       	rcall	.+0      	; 0x834 <DIO_u8SetPortValue+0x8>
+ 834:	0f 92       	push	r0
+ 836:	cd b7       	in	r28, 0x3d	; 61
+ 838:	de b7       	in	r29, 0x3e	; 62
+ 83a:	8a 83       	std	Y+2, r24	; 0x02
+ 83c:	6b 83       	std	Y+3, r22	; 0x03
+	u8 Local_u8ErrorState = STD_TYPES_OK;
+ 83e:	81 e0       	ldi	r24, 0x01	; 1
+ 840:	89 83       	std	Y+1, r24	; 0x01
+	switch(Copy_u8PortId)
+ 842:	8a 81       	ldd	r24, Y+2	; 0x02
+ 844:	28 2f       	mov	r18, r24
+ 846:	30 e0       	ldi	r19, 0x00	; 0
+ 848:	3d 83       	std	Y+5, r19	; 0x05
+ 84a:	2c 83       	std	Y+4, r18	; 0x04
+ 84c:	8c 81       	ldd	r24, Y+4	; 0x04
+ 84e:	9d 81       	ldd	r25, Y+5	; 0x05
+ 850:	81 30       	cpi	r24, 0x01	; 1
+ 852:	91 05       	cpc	r25, r1
+ 854:	d1 f0       	breq	.+52     	; 0x88a <__stack+0x2b>
+ 856:	2c 81       	ldd	r18, Y+4	; 0x04
+ 858:	3d 81       	ldd	r19, Y+5	; 0x05
+ 85a:	22 30       	cpi	r18, 0x02	; 2
+ 85c:	31 05       	cpc	r19, r1
+ 85e:	2c f4       	brge	.+10     	; 0x86a <__stack+0xb>
+ 860:	8c 81       	ldd	r24, Y+4	; 0x04
+ 862:	9d 81       	ldd	r25, Y+5	; 0x05
+ 864:	00 97       	sbiw	r24, 0x00	; 0
+ 866:	61 f0       	breq	.+24     	; 0x880 <__stack+0x21>
+ 868:	1f c0       	rjmp	.+62     	; 0x8a8 <__stack+0x49>
+ 86a:	2c 81       	ldd	r18, Y+4	; 0x04
+ 86c:	3d 81       	ldd	r19, Y+5	; 0x05
+ 86e:	22 30       	cpi	r18, 0x02	; 2
+ 870:	31 05       	cpc	r19, r1
+ 872:	81 f0       	breq	.+32     	; 0x894 <__stack+0x35>
+ 874:	8c 81       	ldd	r24, Y+4	; 0x04
+ 876:	9d 81       	ldd	r25, Y+5	; 0x05
+ 878:	83 30       	cpi	r24, 0x03	; 3
+ 87a:	91 05       	cpc	r25, r1
+ 87c:	81 f0       	breq	.+32     	; 0x89e <__stack+0x3f>
+ 87e:	14 c0       	rjmp	.+40     	; 0x8a8 <__stack+0x49>
+	{
+		case DIO_u8_PORTA:DIO_u8_PORTA_REG = Copy_u8PortValue; break;
+ 880:	eb e3       	ldi	r30, 0x3B	; 59
+ 882:	f0 e0       	ldi	r31, 0x00	; 0
+ 884:	8b 81       	ldd	r24, Y+3	; 0x03
+ 886:	80 83       	st	Z, r24
+ 888:	10 c0       	rjmp	.+32     	; 0x8aa <__stack+0x4b>
+		case DIO_u8_PORTB:DIO_u8_PORTB_REG = Copy_u8PortValue; break;
+ 88a:	e8 e3       	ldi	r30, 0x38	; 56
+ 88c:	f0 e0       	ldi	r31, 0x00	; 0
+ 88e:	8b 81       	ldd	r24, Y+3	; 0x03
+ 890:	80 83       	st	Z, r24
+ 892:	0b c0       	rjmp	.+22     	; 0x8aa <__stack+0x4b>
+		case DIO_u8_PORTC:DIO_u8_PORTC_REG = Copy_u8PortValue; break;
+ 894:	e5 e3       	ldi	r30, 0x35	; 53
+ 896:	f0 e0       	ldi	r31, 0x00	; 0
+ 898:	8b 81       	ldd	r24, Y+3	; 0x03
+ 89a:	80 83       	st	Z, r24
+ 89c:	06 c0       	rjmp	.+12     	; 0x8aa <__stack+0x4b>
+		case DIO_u8_PORTD:DIO_u8_PORTD_REG = Copy_u8PortValue; break;
+ 89e:	e2 e3       	ldi	r30, 0x32	; 50
+ 8a0:	f0 e0       	ldi	r31, 0x00	; 0
+ 8a2:	8b 81       	ldd	r24, Y+3	; 0x03
+ 8a4:	80 83       	st	Z, r24
+ 8a6:	01 c0       	rjmp	.+2      	; 0x8aa <__stack+0x4b>
+		default:Local_u8ErrorState = STD_TYPES_NOK;
+ 8a8:	19 82       	std	Y+1, r1	; 0x01
+	}
+	return Local_u8ErrorState;
+ 8aa:	89 81       	ldd	r24, Y+1	; 0x01
+}
+ 8ac:	0f 90       	pop	r0
+ 8ae:	0f 90       	pop	r0
+ 8b0:	0f 90       	pop	r0
+ 8b2:	0f 90       	pop	r0
+ 8b4:	0f 90       	pop	r0
+ 8b6:	cf 91       	pop	r28
+ 8b8:	df 91       	pop	r29
+ 8ba:	08 95       	ret
+
+000008bc <DIO_u8GetPortValue>:
+
+u8 DIO_u8GetPortValue(u8 Copy_u8PortId, u8 *Copy_pu8ReturnedPortValue)
+{
+ 8bc:	df 93       	push	r29
+ 8be:	cf 93       	push	r28
+ 8c0:	00 d0       	rcall	.+0      	; 0x8c2 <DIO_u8GetPortValue+0x6>
+ 8c2:	00 d0       	rcall	.+0      	; 0x8c4 <DIO_u8GetPortValue+0x8>
+ 8c4:	00 d0       	rcall	.+0      	; 0x8c6 <DIO_u8GetPortValue+0xa>
+ 8c6:	cd b7       	in	r28, 0x3d	; 61
+ 8c8:	de b7       	in	r29, 0x3e	; 62
+ 8ca:	8a 83       	std	Y+2, r24	; 0x02
+ 8cc:	7c 83       	std	Y+4, r23	; 0x04
+ 8ce:	6b 83       	std	Y+3, r22	; 0x03
+	u8 Local_u8ErrorState = STD_TYPES_OK;
+ 8d0:	81 e0       	ldi	r24, 0x01	; 1
+ 8d2:	89 83       	std	Y+1, r24	; 0x01
+	if(Copy_pu8ReturnedPortValue != NULL)
+ 8d4:	8b 81       	ldd	r24, Y+3	; 0x03
+ 8d6:	9c 81       	ldd	r25, Y+4	; 0x04
+ 8d8:	00 97       	sbiw	r24, 0x00	; 0
+ 8da:	e9 f1       	breq	.+122    	; 0x956 <DIO_u8GetPortValue+0x9a>
+	{
+		switch(Copy_u8PortId)
+ 8dc:	8a 81       	ldd	r24, Y+2	; 0x02
+ 8de:	28 2f       	mov	r18, r24
+ 8e0:	30 e0       	ldi	r19, 0x00	; 0
+ 8e2:	3e 83       	std	Y+6, r19	; 0x06
+ 8e4:	2d 83       	std	Y+5, r18	; 0x05
+ 8e6:	8d 81       	ldd	r24, Y+5	; 0x05
+ 8e8:	9e 81       	ldd	r25, Y+6	; 0x06
+ 8ea:	81 30       	cpi	r24, 0x01	; 1
+ 8ec:	91 05       	cpc	r25, r1
+ 8ee:	e1 f0       	breq	.+56     	; 0x928 <DIO_u8GetPortValue+0x6c>
+ 8f0:	2d 81       	ldd	r18, Y+5	; 0x05
+ 8f2:	3e 81       	ldd	r19, Y+6	; 0x06
+ 8f4:	22 30       	cpi	r18, 0x02	; 2
+ 8f6:	31 05       	cpc	r19, r1
+ 8f8:	2c f4       	brge	.+10     	; 0x904 <DIO_u8GetPortValue+0x48>
+ 8fa:	8d 81       	ldd	r24, Y+5	; 0x05
+ 8fc:	9e 81       	ldd	r25, Y+6	; 0x06
+ 8fe:	00 97       	sbiw	r24, 0x00	; 0
+ 900:	61 f0       	breq	.+24     	; 0x91a <DIO_u8GetPortValue+0x5e>
+ 902:	27 c0       	rjmp	.+78     	; 0x952 <DIO_u8GetPortValue+0x96>
+ 904:	2d 81       	ldd	r18, Y+5	; 0x05
+ 906:	3e 81       	ldd	r19, Y+6	; 0x06
+ 908:	22 30       	cpi	r18, 0x02	; 2
+ 90a:	31 05       	cpc	r19, r1
+ 90c:	a1 f0       	breq	.+40     	; 0x936 <DIO_u8GetPortValue+0x7a>
+ 90e:	8d 81       	ldd	r24, Y+5	; 0x05
+ 910:	9e 81       	ldd	r25, Y+6	; 0x06
+ 912:	83 30       	cpi	r24, 0x03	; 3
+ 914:	91 05       	cpc	r25, r1
+ 916:	b1 f0       	breq	.+44     	; 0x944 <DIO_u8GetPortValue+0x88>
+ 918:	1c c0       	rjmp	.+56     	; 0x952 <DIO_u8GetPortValue+0x96>
+		{
+			case DIO_u8_PORTA: *Copy_pu8ReturnedPortValue = DIO_u8_PINA_REG;break;
+ 91a:	e9 e3       	ldi	r30, 0x39	; 57
+ 91c:	f0 e0       	ldi	r31, 0x00	; 0
+ 91e:	80 81       	ld	r24, Z
+ 920:	eb 81       	ldd	r30, Y+3	; 0x03
+ 922:	fc 81       	ldd	r31, Y+4	; 0x04
+ 924:	80 83       	st	Z, r24
+ 926:	18 c0       	rjmp	.+48     	; 0x958 <DIO_u8GetPortValue+0x9c>
+			case DIO_u8_PORTB: *Copy_pu8ReturnedPortValue = DIO_u8_PINB_REG;break;
+ 928:	e6 e3       	ldi	r30, 0x36	; 54
+ 92a:	f0 e0       	ldi	r31, 0x00	; 0
+ 92c:	80 81       	ld	r24, Z
+ 92e:	eb 81       	ldd	r30, Y+3	; 0x03
+ 930:	fc 81       	ldd	r31, Y+4	; 0x04
+ 932:	80 83       	st	Z, r24
+ 934:	11 c0       	rjmp	.+34     	; 0x958 <DIO_u8GetPortValue+0x9c>
+			case DIO_u8_PORTC: *Copy_pu8ReturnedPortValue = DIO_u8_PINC_REG;break;
+ 936:	e3 e3       	ldi	r30, 0x33	; 51
+ 938:	f0 e0       	ldi	r31, 0x00	; 0
+ 93a:	80 81       	ld	r24, Z
+ 93c:	eb 81       	ldd	r30, Y+3	; 0x03
+ 93e:	fc 81       	ldd	r31, Y+4	; 0x04
+ 940:	80 83       	st	Z, r24
+ 942:	0a c0       	rjmp	.+20     	; 0x958 <DIO_u8GetPortValue+0x9c>
+			case DIO_u8_PORTD: *Copy_pu8ReturnedPortValue = DIO_u8_PIND_REG;break;
+ 944:	e0 e3       	ldi	r30, 0x30	; 48
+ 946:	f0 e0       	ldi	r31, 0x00	; 0
+ 948:	80 81       	ld	r24, Z
+ 94a:	eb 81       	ldd	r30, Y+3	; 0x03
+ 94c:	fc 81       	ldd	r31, Y+4	; 0x04
+ 94e:	80 83       	st	Z, r24
+ 950:	03 c0       	rjmp	.+6      	; 0x958 <DIO_u8GetPortValue+0x9c>
+			default:Local_u8ErrorState = STD_TYPES_NOK;
+ 952:	19 82       	std	Y+1, r1	; 0x01
+ 954:	01 c0       	rjmp	.+2      	; 0x958 <DIO_u8GetPortValue+0x9c>
+		}
+	}
+	else
+	{
+		Local_u8ErrorState = STD_TYPES_NOK;
+ 956:	19 82       	std	Y+1, r1	; 0x01
+	}
+	return Local_u8ErrorState;
+ 958:	89 81       	ldd	r24, Y+1	; 0x01
+ 95a:	26 96       	adiw	r28, 0x06	; 6
+ 95c:	0f b6       	in	r0, 0x3f	; 63
+ 95e:	f8 94       	cli
+ 960:	de bf       	out	0x3e, r29	; 62
+ 962:	0f be       	out	0x3f, r0	; 63
+ 964:	cd bf       	out	0x3d, r28	; 61
+ 966:	cf 91       	pop	r28
+ 968:	df 91       	pop	r29
+ 96a:	08 95       	ret
+
+0000096c <EXTI_u8EXTIEnable>:
+/* Global Pointer to a function */
+static void (*EXTI_ApfExtI[3]) (void) = {NULL,NULL,NULL};
+
+
+u8 EXTI_u8EXTIEnable(u8 Copy_u8EXTIIndex,u8 Copy_u8EdgeIndex)
+{
+ 96c:	df 93       	push	r29
+ 96e:	cf 93       	push	r28
+ 970:	cd b7       	in	r28, 0x3d	; 61
+ 972:	de b7       	in	r29, 0x3e	; 62
+ 974:	2b 97       	sbiw	r28, 0x0b	; 11
+ 976:	0f b6       	in	r0, 0x3f	; 63
+ 978:	f8 94       	cli
+ 97a:	de bf       	out	0x3e, r29	; 62
+ 97c:	0f be       	out	0x3f, r0	; 63
+ 97e:	cd bf       	out	0x3d, r28	; 61
+ 980:	8a 83       	std	Y+2, r24	; 0x02
+ 982:	6b 83       	std	Y+3, r22	; 0x03
+	u8 Local_u8ErrorState = STD_TYPES_OK;
+ 984:	81 e0       	ldi	r24, 0x01	; 1
+ 986:	89 83       	std	Y+1, r24	; 0x01
+	switch(Copy_u8EXTIIndex)
+ 988:	8a 81       	ldd	r24, Y+2	; 0x02
+ 98a:	28 2f       	mov	r18, r24
+ 98c:	30 e0       	ldi	r19, 0x00	; 0
+ 98e:	3b 87       	std	Y+11, r19	; 0x0b
+ 990:	2a 87       	std	Y+10, r18	; 0x0a
+ 992:	8a 85       	ldd	r24, Y+10	; 0x0a
+ 994:	9b 85       	ldd	r25, Y+11	; 0x0b
+ 996:	81 30       	cpi	r24, 0x01	; 1
+ 998:	91 05       	cpc	r25, r1
+ 99a:	09 f4       	brne	.+2      	; 0x99e <EXTI_u8EXTIEnable+0x32>
+ 99c:	85 c0       	rjmp	.+266    	; 0xaa8 <EXTI_u8EXTIEnable+0x13c>
+ 99e:	2a 85       	ldd	r18, Y+10	; 0x0a
+ 9a0:	3b 85       	ldd	r19, Y+11	; 0x0b
+ 9a2:	22 30       	cpi	r18, 0x02	; 2
+ 9a4:	31 05       	cpc	r19, r1
+ 9a6:	09 f4       	brne	.+2      	; 0x9aa <EXTI_u8EXTIEnable+0x3e>
+ 9a8:	f9 c0       	rjmp	.+498    	; 0xb9c <EXTI_u8EXTIEnable+0x230>
+ 9aa:	8a 85       	ldd	r24, Y+10	; 0x0a
+ 9ac:	9b 85       	ldd	r25, Y+11	; 0x0b
+ 9ae:	00 97       	sbiw	r24, 0x00	; 0
+ 9b0:	09 f0       	breq	.+2      	; 0x9b4 <EXTI_u8EXTIEnable+0x48>
+ 9b2:	23 c1       	rjmp	.+582    	; 0xbfa <EXTI_u8EXTIEnable+0x28e>
+	{
+		case EXTI_u8_INT0:
+			switch(Copy_u8EdgeIndex)
+ 9b4:	8b 81       	ldd	r24, Y+3	; 0x03
+ 9b6:	28 2f       	mov	r18, r24
+ 9b8:	30 e0       	ldi	r19, 0x00	; 0
+ 9ba:	39 87       	std	Y+9, r19	; 0x09
+ 9bc:	28 87       	std	Y+8, r18	; 0x08
+ 9be:	88 85       	ldd	r24, Y+8	; 0x08
+ 9c0:	99 85       	ldd	r25, Y+9	; 0x09
+ 9c2:	81 30       	cpi	r24, 0x01	; 1
+ 9c4:	91 05       	cpc	r25, r1
+ 9c6:	61 f1       	breq	.+88     	; 0xa20 <EXTI_u8EXTIEnable+0xb4>
+ 9c8:	28 85       	ldd	r18, Y+8	; 0x08
+ 9ca:	39 85       	ldd	r19, Y+9	; 0x09
+ 9cc:	22 30       	cpi	r18, 0x02	; 2
+ 9ce:	31 05       	cpc	r19, r1
+ 9d0:	2c f4       	brge	.+10     	; 0x9dc <EXTI_u8EXTIEnable+0x70>
+ 9d2:	88 85       	ldd	r24, Y+8	; 0x08
+ 9d4:	99 85       	ldd	r25, Y+9	; 0x09
+ 9d6:	00 97       	sbiw	r24, 0x00	; 0
+ 9d8:	69 f0       	breq	.+26     	; 0x9f4 <EXTI_u8EXTIEnable+0x88>
+ 9da:	64 c0       	rjmp	.+200    	; 0xaa4 <EXTI_u8EXTIEnable+0x138>
+ 9dc:	28 85       	ldd	r18, Y+8	; 0x08
+ 9de:	39 85       	ldd	r19, Y+9	; 0x09
+ 9e0:	22 30       	cpi	r18, 0x02	; 2
+ 9e2:	31 05       	cpc	r19, r1
+ 9e4:	99 f1       	breq	.+102    	; 0xa4c <EXTI_u8EXTIEnable+0xe0>
+ 9e6:	88 85       	ldd	r24, Y+8	; 0x08
+ 9e8:	99 85       	ldd	r25, Y+9	; 0x09
+ 9ea:	83 30       	cpi	r24, 0x03	; 3
+ 9ec:	91 05       	cpc	r25, r1
+ 9ee:	09 f4       	brne	.+2      	; 0x9f2 <EXTI_u8EXTIEnable+0x86>
+ 9f0:	43 c0       	rjmp	.+134    	; 0xa78 <EXTI_u8EXTIEnable+0x10c>
+ 9f2:	58 c0       	rjmp	.+176    	; 0xaa4 <EXTI_u8EXTIEnable+0x138>
+			{
+				case EXTI_u8_RAISING_EDGE:
+					SET_BIT(EXTI_u8_MCUCR,1);
+ 9f4:	a5 e5       	ldi	r26, 0x55	; 85
+ 9f6:	b0 e0       	ldi	r27, 0x00	; 0
+ 9f8:	e5 e5       	ldi	r30, 0x55	; 85
+ 9fa:	f0 e0       	ldi	r31, 0x00	; 0
+ 9fc:	80 81       	ld	r24, Z
+ 9fe:	82 60       	ori	r24, 0x02	; 2
+ a00:	8c 93       	st	X, r24
+					SET_BIT(EXTI_u8_MCUCR,0);
+ a02:	a5 e5       	ldi	r26, 0x55	; 85
+ a04:	b0 e0       	ldi	r27, 0x00	; 0
+ a06:	e5 e5       	ldi	r30, 0x55	; 85
+ a08:	f0 e0       	ldi	r31, 0x00	; 0
+ a0a:	80 81       	ld	r24, Z
+ a0c:	81 60       	ori	r24, 0x01	; 1
+ a0e:	8c 93       	st	X, r24
+					/* Enable EXTI0 */
+					SET_BIT(EXTI_u8_GICR,6);
+ a10:	ab e5       	ldi	r26, 0x5B	; 91
+ a12:	b0 e0       	ldi	r27, 0x00	; 0
+ a14:	eb e5       	ldi	r30, 0x5B	; 91
+ a16:	f0 e0       	ldi	r31, 0x00	; 0
+ a18:	80 81       	ld	r24, Z
+ a1a:	80 64       	ori	r24, 0x40	; 64
+ a1c:	8c 93       	st	X, r24
+ a1e:	ee c0       	rjmp	.+476    	; 0xbfc <EXTI_u8EXTIEnable+0x290>
+				break;
+				case EXTI_u8_FALLING_EDGE:
+					SET_BIT(EXTI_u8_MCUCR,1);
+ a20:	a5 e5       	ldi	r26, 0x55	; 85
+ a22:	b0 e0       	ldi	r27, 0x00	; 0
+ a24:	e5 e5       	ldi	r30, 0x55	; 85
+ a26:	f0 e0       	ldi	r31, 0x00	; 0
+ a28:	80 81       	ld	r24, Z
+ a2a:	82 60       	ori	r24, 0x02	; 2
+ a2c:	8c 93       	st	X, r24
+					CLR_BIT(EXTI_u8_MCUCR,0);
+ a2e:	a5 e5       	ldi	r26, 0x55	; 85
+ a30:	b0 e0       	ldi	r27, 0x00	; 0
+ a32:	e5 e5       	ldi	r30, 0x55	; 85
+ a34:	f0 e0       	ldi	r31, 0x00	; 0
+ a36:	80 81       	ld	r24, Z
+ a38:	8e 7f       	andi	r24, 0xFE	; 254
+ a3a:	8c 93       	st	X, r24
+					/* Enable EXTI0 */
+					SET_BIT(EXTI_u8_GICR,6);
+ a3c:	ab e5       	ldi	r26, 0x5B	; 91
+ a3e:	b0 e0       	ldi	r27, 0x00	; 0
+ a40:	eb e5       	ldi	r30, 0x5B	; 91
+ a42:	f0 e0       	ldi	r31, 0x00	; 0
+ a44:	80 81       	ld	r24, Z
+ a46:	80 64       	ori	r24, 0x40	; 64
+ a48:	8c 93       	st	X, r24
+ a4a:	d8 c0       	rjmp	.+432    	; 0xbfc <EXTI_u8EXTIEnable+0x290>
+				break;
+				case EXTI_u8_ANY_LOGICAL_CHANGE:
+					CLR_BIT(EXTI_u8_MCUCR,1);
+ a4c:	a5 e5       	ldi	r26, 0x55	; 85
+ a4e:	b0 e0       	ldi	r27, 0x00	; 0
+ a50:	e5 e5       	ldi	r30, 0x55	; 85
+ a52:	f0 e0       	ldi	r31, 0x00	; 0
+ a54:	80 81       	ld	r24, Z
+ a56:	8d 7f       	andi	r24, 0xFD	; 253
+ a58:	8c 93       	st	X, r24
+					SET_BIT(EXTI_u8_MCUCR,0);
+ a5a:	a5 e5       	ldi	r26, 0x55	; 85
+ a5c:	b0 e0       	ldi	r27, 0x00	; 0
+ a5e:	e5 e5       	ldi	r30, 0x55	; 85
+ a60:	f0 e0       	ldi	r31, 0x00	; 0
+ a62:	80 81       	ld	r24, Z
+ a64:	81 60       	ori	r24, 0x01	; 1
+ a66:	8c 93       	st	X, r24
+					/* Enable EXTI0 */
+					SET_BIT(EXTI_u8_GICR,6);
+ a68:	ab e5       	ldi	r26, 0x5B	; 91
+ a6a:	b0 e0       	ldi	r27, 0x00	; 0
+ a6c:	eb e5       	ldi	r30, 0x5B	; 91
+ a6e:	f0 e0       	ldi	r31, 0x00	; 0
+ a70:	80 81       	ld	r24, Z
+ a72:	80 64       	ori	r24, 0x40	; 64
+ a74:	8c 93       	st	X, r24
+ a76:	c2 c0       	rjmp	.+388    	; 0xbfc <EXTI_u8EXTIEnable+0x290>
+				break;
+				case EXTI_u8_LOW_LEVEL:
+					CLR_BIT(EXTI_u8_MCUCR,1);
+ a78:	a5 e5       	ldi	r26, 0x55	; 85
+ a7a:	b0 e0       	ldi	r27, 0x00	; 0
+ a7c:	e5 e5       	ldi	r30, 0x55	; 85
+ a7e:	f0 e0       	ldi	r31, 0x00	; 0
+ a80:	80 81       	ld	r24, Z
+ a82:	8d 7f       	andi	r24, 0xFD	; 253
+ a84:	8c 93       	st	X, r24
+					CLR_BIT(EXTI_u8_MCUCR,0);
+ a86:	a5 e5       	ldi	r26, 0x55	; 85
+ a88:	b0 e0       	ldi	r27, 0x00	; 0
+ a8a:	e5 e5       	ldi	r30, 0x55	; 85
+ a8c:	f0 e0       	ldi	r31, 0x00	; 0
+ a8e:	80 81       	ld	r24, Z
+ a90:	8e 7f       	andi	r24, 0xFE	; 254
+ a92:	8c 93       	st	X, r24
+					/* Enable EXTI0 */
+					SET_BIT(EXTI_u8_GICR,6);
+ a94:	ab e5       	ldi	r26, 0x5B	; 91
+ a96:	b0 e0       	ldi	r27, 0x00	; 0
+ a98:	eb e5       	ldi	r30, 0x5B	; 91
+ a9a:	f0 e0       	ldi	r31, 0x00	; 0
+ a9c:	80 81       	ld	r24, Z
+ a9e:	80 64       	ori	r24, 0x40	; 64
+ aa0:	8c 93       	st	X, r24
+ aa2:	ac c0       	rjmp	.+344    	; 0xbfc <EXTI_u8EXTIEnable+0x290>
+				break;
+				default: Local_u8ErrorState = STD_TYPES_NOK;
+ aa4:	19 82       	std	Y+1, r1	; 0x01
+ aa6:	aa c0       	rjmp	.+340    	; 0xbfc <EXTI_u8EXTIEnable+0x290>
+			}
+		break;
+		case EXTI_u8_INT1:
+			switch(Copy_u8EdgeIndex)
+ aa8:	8b 81       	ldd	r24, Y+3	; 0x03
+ aaa:	28 2f       	mov	r18, r24
+ aac:	30 e0       	ldi	r19, 0x00	; 0
+ aae:	3f 83       	std	Y+7, r19	; 0x07
+ ab0:	2e 83       	std	Y+6, r18	; 0x06
+ ab2:	8e 81       	ldd	r24, Y+6	; 0x06
+ ab4:	9f 81       	ldd	r25, Y+7	; 0x07
+ ab6:	81 30       	cpi	r24, 0x01	; 1
+ ab8:	91 05       	cpc	r25, r1
+ aba:	61 f1       	breq	.+88     	; 0xb14 <EXTI_u8EXTIEnable+0x1a8>
+ abc:	2e 81       	ldd	r18, Y+6	; 0x06
+ abe:	3f 81       	ldd	r19, Y+7	; 0x07
+ ac0:	22 30       	cpi	r18, 0x02	; 2
+ ac2:	31 05       	cpc	r19, r1
+ ac4:	2c f4       	brge	.+10     	; 0xad0 <EXTI_u8EXTIEnable+0x164>
+ ac6:	8e 81       	ldd	r24, Y+6	; 0x06
+ ac8:	9f 81       	ldd	r25, Y+7	; 0x07
+ aca:	00 97       	sbiw	r24, 0x00	; 0
+ acc:	69 f0       	breq	.+26     	; 0xae8 <EXTI_u8EXTIEnable+0x17c>
+ ace:	64 c0       	rjmp	.+200    	; 0xb98 <EXTI_u8EXTIEnable+0x22c>
+ ad0:	2e 81       	ldd	r18, Y+6	; 0x06
+ ad2:	3f 81       	ldd	r19, Y+7	; 0x07
+ ad4:	22 30       	cpi	r18, 0x02	; 2
+ ad6:	31 05       	cpc	r19, r1
+ ad8:	99 f1       	breq	.+102    	; 0xb40 <EXTI_u8EXTIEnable+0x1d4>
+ ada:	8e 81       	ldd	r24, Y+6	; 0x06
+ adc:	9f 81       	ldd	r25, Y+7	; 0x07
+ ade:	83 30       	cpi	r24, 0x03	; 3
+ ae0:	91 05       	cpc	r25, r1
+ ae2:	09 f4       	brne	.+2      	; 0xae6 <EXTI_u8EXTIEnable+0x17a>
+ ae4:	43 c0       	rjmp	.+134    	; 0xb6c <EXTI_u8EXTIEnable+0x200>
+ ae6:	58 c0       	rjmp	.+176    	; 0xb98 <EXTI_u8EXTIEnable+0x22c>
+			{
+				case EXTI_u8_RAISING_EDGE:
+					SET_BIT(EXTI_u8_MCUCR,3);
+ ae8:	a5 e5       	ldi	r26, 0x55	; 85
+ aea:	b0 e0       	ldi	r27, 0x00	; 0
+ aec:	e5 e5       	ldi	r30, 0x55	; 85
+ aee:	f0 e0       	ldi	r31, 0x00	; 0
+ af0:	80 81       	ld	r24, Z
+ af2:	88 60       	ori	r24, 0x08	; 8
+ af4:	8c 93       	st	X, r24
+					SET_BIT(EXTI_u8_MCUCR,2);
+ af6:	a5 e5       	ldi	r26, 0x55	; 85
+ af8:	b0 e0       	ldi	r27, 0x00	; 0
+ afa:	e5 e5       	ldi	r30, 0x55	; 85
+ afc:	f0 e0       	ldi	r31, 0x00	; 0
+ afe:	80 81       	ld	r24, Z
+ b00:	84 60       	ori	r24, 0x04	; 4
+ b02:	8c 93       	st	X, r24
+					/* Enable EXTI1 */
+					SET_BIT(EXTI_u8_GICR,7);
+ b04:	ab e5       	ldi	r26, 0x5B	; 91
+ b06:	b0 e0       	ldi	r27, 0x00	; 0
+ b08:	eb e5       	ldi	r30, 0x5B	; 91
+ b0a:	f0 e0       	ldi	r31, 0x00	; 0
+ b0c:	80 81       	ld	r24, Z
+ b0e:	80 68       	ori	r24, 0x80	; 128
+ b10:	8c 93       	st	X, r24
+ b12:	74 c0       	rjmp	.+232    	; 0xbfc <EXTI_u8EXTIEnable+0x290>
+				break;
+				case EXTI_u8_FALLING_EDGE:
+					SET_BIT(EXTI_u8_MCUCR,3);
+ b14:	a5 e5       	ldi	r26, 0x55	; 85
+ b16:	b0 e0       	ldi	r27, 0x00	; 0
+ b18:	e5 e5       	ldi	r30, 0x55	; 85
+ b1a:	f0 e0       	ldi	r31, 0x00	; 0
+ b1c:	80 81       	ld	r24, Z
+ b1e:	88 60       	ori	r24, 0x08	; 8
+ b20:	8c 93       	st	X, r24
+					CLR_BIT(EXTI_u8_MCUCR,2);
+ b22:	a5 e5       	ldi	r26, 0x55	; 85
+ b24:	b0 e0       	ldi	r27, 0x00	; 0
+ b26:	e5 e5       	ldi	r30, 0x55	; 85
+ b28:	f0 e0       	ldi	r31, 0x00	; 0
+ b2a:	80 81       	ld	r24, Z
+ b2c:	8b 7f       	andi	r24, 0xFB	; 251
+ b2e:	8c 93       	st	X, r24
+					/* Enable EXTI1 */
+					SET_BIT(EXTI_u8_GICR,7);
+ b30:	ab e5       	ldi	r26, 0x5B	; 91
+ b32:	b0 e0       	ldi	r27, 0x00	; 0
+ b34:	eb e5       	ldi	r30, 0x5B	; 91
+ b36:	f0 e0       	ldi	r31, 0x00	; 0
+ b38:	80 81       	ld	r24, Z
+ b3a:	80 68       	ori	r24, 0x80	; 128
+ b3c:	8c 93       	st	X, r24
+ b3e:	5e c0       	rjmp	.+188    	; 0xbfc <EXTI_u8EXTIEnable+0x290>
+				break;
+				case EXTI_u8_ANY_LOGICAL_CHANGE:
+					CLR_BIT(EXTI_u8_MCUCR,3);
+ b40:	a5 e5       	ldi	r26, 0x55	; 85
+ b42:	b0 e0       	ldi	r27, 0x00	; 0
+ b44:	e5 e5       	ldi	r30, 0x55	; 85
+ b46:	f0 e0       	ldi	r31, 0x00	; 0
+ b48:	80 81       	ld	r24, Z
+ b4a:	87 7f       	andi	r24, 0xF7	; 247
+ b4c:	8c 93       	st	X, r24
+					SET_BIT(EXTI_u8_MCUCR,2);
+ b4e:	a5 e5       	ldi	r26, 0x55	; 85
+ b50:	b0 e0       	ldi	r27, 0x00	; 0
+ b52:	e5 e5       	ldi	r30, 0x55	; 85
+ b54:	f0 e0       	ldi	r31, 0x00	; 0
+ b56:	80 81       	ld	r24, Z
+ b58:	84 60       	ori	r24, 0x04	; 4
+ b5a:	8c 93       	st	X, r24
+					/* Enable EXTI1 */
+					SET_BIT(EXTI_u8_GICR,7);
+ b5c:	ab e5       	ldi	r26, 0x5B	; 91
+ b5e:	b0 e0       	ldi	r27, 0x00	; 0
+ b60:	eb e5       	ldi	r30, 0x5B	; 91
+ b62:	f0 e0       	ldi	r31, 0x00	; 0
+ b64:	80 81       	ld	r24, Z
+ b66:	80 68       	ori	r24, 0x80	; 128
+ b68:	8c 93       	st	X, r24
+ b6a:	48 c0       	rjmp	.+144    	; 0xbfc <EXTI_u8EXTIEnable+0x290>
+				break;
+				case EXTI_u8_LOW_LEVEL:
+					CLR_BIT(EXTI_u8_MCUCR,3);
+ b6c:	a5 e5       	ldi	r26, 0x55	; 85
+ b6e:	b0 e0       	ldi	r27, 0x00	; 0
+ b70:	e5 e5       	ldi	r30, 0x55	; 85
+ b72:	f0 e0       	ldi	r31, 0x00	; 0
+ b74:	80 81       	ld	r24, Z
+ b76:	87 7f       	andi	r24, 0xF7	; 247
+ b78:	8c 93       	st	X, r24
+					CLR_BIT(EXTI_u8_MCUCR,2);
+ b7a:	a5 e5       	ldi	r26, 0x55	; 85
+ b7c:	b0 e0       	ldi	r27, 0x00	; 0
+ b7e:	e5 e5       	ldi	r30, 0x55	; 85
+ b80:	f0 e0       	ldi	r31, 0x00	; 0
+ b82:	80 81       	ld	r24, Z
+ b84:	8b 7f       	andi	r24, 0xFB	; 251
+ b86:	8c 93       	st	X, r24
+					/* Enable EXTI1 */
+					SET_BIT(EXTI_u8_GICR,7);
+ b88:	ab e5       	ldi	r26, 0x5B	; 91
+ b8a:	b0 e0       	ldi	r27, 0x00	; 0
+ b8c:	eb e5       	ldi	r30, 0x5B	; 91
+ b8e:	f0 e0       	ldi	r31, 0x00	; 0
+ b90:	80 81       	ld	r24, Z
+ b92:	80 68       	ori	r24, 0x80	; 128
+ b94:	8c 93       	st	X, r24
+ b96:	32 c0       	rjmp	.+100    	; 0xbfc <EXTI_u8EXTIEnable+0x290>
+				break;
+				default: Local_u8ErrorState = STD_TYPES_NOK;
+ b98:	19 82       	std	Y+1, r1	; 0x01
+ b9a:	30 c0       	rjmp	.+96     	; 0xbfc <EXTI_u8EXTIEnable+0x290>
+			}
+		break;
+		case EXTI_u8_INT2:
+			switch(Copy_u8EdgeIndex)
+ b9c:	8b 81       	ldd	r24, Y+3	; 0x03
+ b9e:	28 2f       	mov	r18, r24
+ ba0:	30 e0       	ldi	r19, 0x00	; 0
+ ba2:	3d 83       	std	Y+5, r19	; 0x05
+ ba4:	2c 83       	std	Y+4, r18	; 0x04
+ ba6:	8c 81       	ldd	r24, Y+4	; 0x04
+ ba8:	9d 81       	ldd	r25, Y+5	; 0x05
+ baa:	00 97       	sbiw	r24, 0x00	; 0
+ bac:	31 f0       	breq	.+12     	; 0xbba <EXTI_u8EXTIEnable+0x24e>
+ bae:	2c 81       	ldd	r18, Y+4	; 0x04
+ bb0:	3d 81       	ldd	r19, Y+5	; 0x05
+ bb2:	21 30       	cpi	r18, 0x01	; 1
+ bb4:	31 05       	cpc	r19, r1
+ bb6:	81 f0       	breq	.+32     	; 0xbd8 <EXTI_u8EXTIEnable+0x26c>
+ bb8:	1e c0       	rjmp	.+60     	; 0xbf6 <EXTI_u8EXTIEnable+0x28a>
+			{
+				case EXTI_u8_RAISING_EDGE:
+					SET_BIT(EXTI_u8_MCUCSR,6);
+ bba:	a4 e5       	ldi	r26, 0x54	; 84
+ bbc:	b0 e0       	ldi	r27, 0x00	; 0
+ bbe:	e4 e5       	ldi	r30, 0x54	; 84
+ bc0:	f0 e0       	ldi	r31, 0x00	; 0
+ bc2:	80 81       	ld	r24, Z
+ bc4:	80 64       	ori	r24, 0x40	; 64
+ bc6:	8c 93       	st	X, r24
+					/* Enable EXTI2 */
+					SET_BIT(EXTI_u8_GICR,5);
+ bc8:	ab e5       	ldi	r26, 0x5B	; 91
+ bca:	b0 e0       	ldi	r27, 0x00	; 0
+ bcc:	eb e5       	ldi	r30, 0x5B	; 91
+ bce:	f0 e0       	ldi	r31, 0x00	; 0
+ bd0:	80 81       	ld	r24, Z
+ bd2:	80 62       	ori	r24, 0x20	; 32
+ bd4:	8c 93       	st	X, r24
+ bd6:	12 c0       	rjmp	.+36     	; 0xbfc <EXTI_u8EXTIEnable+0x290>
+				break;
+				case EXTI_u8_FALLING_EDGE:
+					CLR_BIT(EXTI_u8_MCUCSR,6);
+ bd8:	a4 e5       	ldi	r26, 0x54	; 84
+ bda:	b0 e0       	ldi	r27, 0x00	; 0
+ bdc:	e4 e5       	ldi	r30, 0x54	; 84
+ bde:	f0 e0       	ldi	r31, 0x00	; 0
+ be0:	80 81       	ld	r24, Z
+ be2:	8f 7b       	andi	r24, 0xBF	; 191
+ be4:	8c 93       	st	X, r24
+					/* Enable EXTI2 */
+					SET_BIT(EXTI_u8_GICR,5);
+ be6:	ab e5       	ldi	r26, 0x5B	; 91
+ be8:	b0 e0       	ldi	r27, 0x00	; 0
+ bea:	eb e5       	ldi	r30, 0x5B	; 91
+ bec:	f0 e0       	ldi	r31, 0x00	; 0
+ bee:	80 81       	ld	r24, Z
+ bf0:	80 62       	ori	r24, 0x20	; 32
+ bf2:	8c 93       	st	X, r24
+ bf4:	03 c0       	rjmp	.+6      	; 0xbfc <EXTI_u8EXTIEnable+0x290>
+				break;
+				default: Local_u8ErrorState = STD_TYPES_NOK;
+ bf6:	19 82       	std	Y+1, r1	; 0x01
+ bf8:	01 c0       	rjmp	.+2      	; 0xbfc <EXTI_u8EXTIEnable+0x290>
+			}
+		break;
+		default: Local_u8ErrorState = STD_TYPES_NOK;
+ bfa:	19 82       	std	Y+1, r1	; 0x01
+	}
+	return Local_u8ErrorState;
+ bfc:	89 81       	ldd	r24, Y+1	; 0x01
+}
+ bfe:	2b 96       	adiw	r28, 0x0b	; 11
+ c00:	0f b6       	in	r0, 0x3f	; 63
+ c02:	f8 94       	cli
+ c04:	de bf       	out	0x3e, r29	; 62
+ c06:	0f be       	out	0x3f, r0	; 63
+ c08:	cd bf       	out	0x3d, r28	; 61
+ c0a:	cf 91       	pop	r28
+ c0c:	df 91       	pop	r29
+ c0e:	08 95       	ret
+
+00000c10 <EXTI_u8EXTIDisable>:
+
+u8 EXTI_u8EXTIDisable(u8 Copy_u8EXTIIndex)
+{
+ c10:	df 93       	push	r29
+ c12:	cf 93       	push	r28
+ c14:	00 d0       	rcall	.+0      	; 0xc16 <EXTI_u8EXTIDisable+0x6>
+ c16:	00 d0       	rcall	.+0      	; 0xc18 <EXTI_u8EXTIDisable+0x8>
+ c18:	cd b7       	in	r28, 0x3d	; 61
+ c1a:	de b7       	in	r29, 0x3e	; 62
+ c1c:	8a 83       	std	Y+2, r24	; 0x02
+	u8 Local_u8ErrorState = STD_TYPES_OK;
+ c1e:	81 e0       	ldi	r24, 0x01	; 1
+ c20:	89 83       	std	Y+1, r24	; 0x01
+	switch(Copy_u8EXTIIndex)
+ c22:	8a 81       	ldd	r24, Y+2	; 0x02
+ c24:	28 2f       	mov	r18, r24
+ c26:	30 e0       	ldi	r19, 0x00	; 0
+ c28:	3c 83       	std	Y+4, r19	; 0x04
+ c2a:	2b 83       	std	Y+3, r18	; 0x03
+ c2c:	8b 81       	ldd	r24, Y+3	; 0x03
+ c2e:	9c 81       	ldd	r25, Y+4	; 0x04
+ c30:	81 30       	cpi	r24, 0x01	; 1
+ c32:	91 05       	cpc	r25, r1
+ c34:	89 f0       	breq	.+34     	; 0xc58 <EXTI_u8EXTIDisable+0x48>
+ c36:	2b 81       	ldd	r18, Y+3	; 0x03
+ c38:	3c 81       	ldd	r19, Y+4	; 0x04
+ c3a:	22 30       	cpi	r18, 0x02	; 2
+ c3c:	31 05       	cpc	r19, r1
+ c3e:	a1 f0       	breq	.+40     	; 0xc68 <EXTI_u8EXTIDisable+0x58>
+ c40:	8b 81       	ldd	r24, Y+3	; 0x03
+ c42:	9c 81       	ldd	r25, Y+4	; 0x04
+ c44:	00 97       	sbiw	r24, 0x00	; 0
+ c46:	c1 f4       	brne	.+48     	; 0xc78 <EXTI_u8EXTIDisable+0x68>
+	{
+		case EXTI_u8_INT0:
+			/* Enable EXTI0 */
+			CLR_BIT(EXTI_u8_GICR,6);
+ c48:	ab e5       	ldi	r26, 0x5B	; 91
+ c4a:	b0 e0       	ldi	r27, 0x00	; 0
+ c4c:	eb e5       	ldi	r30, 0x5B	; 91
+ c4e:	f0 e0       	ldi	r31, 0x00	; 0
+ c50:	80 81       	ld	r24, Z
+ c52:	8f 7b       	andi	r24, 0xBF	; 191
+ c54:	8c 93       	st	X, r24
+ c56:	11 c0       	rjmp	.+34     	; 0xc7a <EXTI_u8EXTIDisable+0x6a>
+		break;
+		case EXTI_u8_INT1:
+			/* Enable EXTI1 */
+			CLR_BIT(EXTI_u8_GICR,7);
+ c58:	ab e5       	ldi	r26, 0x5B	; 91
+ c5a:	b0 e0       	ldi	r27, 0x00	; 0
+ c5c:	eb e5       	ldi	r30, 0x5B	; 91
+ c5e:	f0 e0       	ldi	r31, 0x00	; 0
+ c60:	80 81       	ld	r24, Z
+ c62:	8f 77       	andi	r24, 0x7F	; 127
+ c64:	8c 93       	st	X, r24
+ c66:	09 c0       	rjmp	.+18     	; 0xc7a <EXTI_u8EXTIDisable+0x6a>
+		break;
+		case EXTI_u8_INT2:
+			/* Enable EXTI2 */
+			CLR_BIT(EXTI_u8_GICR,5);
+ c68:	ab e5       	ldi	r26, 0x5B	; 91
+ c6a:	b0 e0       	ldi	r27, 0x00	; 0
+ c6c:	eb e5       	ldi	r30, 0x5B	; 91
+ c6e:	f0 e0       	ldi	r31, 0x00	; 0
+ c70:	80 81       	ld	r24, Z
+ c72:	8f 7d       	andi	r24, 0xDF	; 223
+ c74:	8c 93       	st	X, r24
+ c76:	01 c0       	rjmp	.+2      	; 0xc7a <EXTI_u8EXTIDisable+0x6a>
+		break;
+		default: Local_u8ErrorState = STD_TYPES_NOK;
+ c78:	19 82       	std	Y+1, r1	; 0x01
+	}
+	return Local_u8ErrorState;
+ c7a:	89 81       	ldd	r24, Y+1	; 0x01
+}
+ c7c:	0f 90       	pop	r0
+ c7e:	0f 90       	pop	r0
+ c80:	0f 90       	pop	r0
+ c82:	0f 90       	pop	r0
+ c84:	cf 91       	pop	r28
+ c86:	df 91       	pop	r29
+ c88:	08 95       	ret
+
+00000c8a <EXTI_u8EXTISetCallBack>:
+
+
+u8 EXTI_u8EXTISetCallBack(u8 Copy_u8EXTIIndex, void (*Copy_pf)(void))
+{
+ c8a:	df 93       	push	r29
+ c8c:	cf 93       	push	r28
+ c8e:	00 d0       	rcall	.+0      	; 0xc90 <EXTI_u8EXTISetCallBack+0x6>
+ c90:	00 d0       	rcall	.+0      	; 0xc92 <EXTI_u8EXTISetCallBack+0x8>
+ c92:	cd b7       	in	r28, 0x3d	; 61
+ c94:	de b7       	in	r29, 0x3e	; 62
+ c96:	8a 83       	std	Y+2, r24	; 0x02
+ c98:	7c 83       	std	Y+4, r23	; 0x04
+ c9a:	6b 83       	std	Y+3, r22	; 0x03
+	u8 Local_u8ErrorState = STD_TYPES_OK;
+ c9c:	81 e0       	ldi	r24, 0x01	; 1
+ c9e:	89 83       	std	Y+1, r24	; 0x01
+	if((Copy_u8EXTIIndex) <= EXTI_u8_INT2 && (Copy_pf != NULL))
+ ca0:	8a 81       	ldd	r24, Y+2	; 0x02
+ ca2:	83 30       	cpi	r24, 0x03	; 3
+ ca4:	88 f4       	brcc	.+34     	; 0xcc8 <EXTI_u8EXTISetCallBack+0x3e>
+ ca6:	8b 81       	ldd	r24, Y+3	; 0x03
+ ca8:	9c 81       	ldd	r25, Y+4	; 0x04
+ caa:	00 97       	sbiw	r24, 0x00	; 0
+ cac:	69 f0       	breq	.+26     	; 0xcc8 <EXTI_u8EXTISetCallBack+0x3e>
+	{
+		EXTI_ApfExtI[Copy_u8EXTIIndex] = Copy_pf;
+ cae:	8a 81       	ldd	r24, Y+2	; 0x02
+ cb0:	88 2f       	mov	r24, r24
+ cb2:	90 e0       	ldi	r25, 0x00	; 0
+ cb4:	88 0f       	add	r24, r24
+ cb6:	99 1f       	adc	r25, r25
+ cb8:	fc 01       	movw	r30, r24
+ cba:	e0 5a       	subi	r30, 0xA0	; 160
+ cbc:	ff 4f       	sbci	r31, 0xFF	; 255
+ cbe:	8b 81       	ldd	r24, Y+3	; 0x03
+ cc0:	9c 81       	ldd	r25, Y+4	; 0x04
+ cc2:	91 83       	std	Z+1, r25	; 0x01
+ cc4:	80 83       	st	Z, r24
+ cc6:	01 c0       	rjmp	.+2      	; 0xcca <EXTI_u8EXTISetCallBack+0x40>
+	}
+	else
+	{
+		Local_u8ErrorState = STD_TYPES_NOK;
+ cc8:	19 82       	std	Y+1, r1	; 0x01
+	}
+	return Local_u8ErrorState;
+ cca:	89 81       	ldd	r24, Y+1	; 0x01
+}
+ ccc:	0f 90       	pop	r0
+ cce:	0f 90       	pop	r0
+ cd0:	0f 90       	pop	r0
+ cd2:	0f 90       	pop	r0
+ cd4:	cf 91       	pop	r28
+ cd6:	df 91       	pop	r29
+ cd8:	08 95       	ret
+
+00000cda <__vector_1>:
+
+/* Prototype for ISR of EXTI0 */
+
+void __vector_1(void)    __attribute__((signal));
+void __vector_1(void)
+{
+ cda:	1f 92       	push	r1
+ cdc:	0f 92       	push	r0
+ cde:	0f b6       	in	r0, 0x3f	; 63
+ ce0:	0f 92       	push	r0
+ ce2:	11 24       	eor	r1, r1
+ ce4:	2f 93       	push	r18
+ ce6:	3f 93       	push	r19
+ ce8:	4f 93       	push	r20
+ cea:	5f 93       	push	r21
+ cec:	6f 93       	push	r22
+ cee:	7f 93       	push	r23
+ cf0:	8f 93       	push	r24
+ cf2:	9f 93       	push	r25
+ cf4:	af 93       	push	r26
+ cf6:	bf 93       	push	r27
+ cf8:	ef 93       	push	r30
+ cfa:	ff 93       	push	r31
+ cfc:	df 93       	push	r29
+ cfe:	cf 93       	push	r28
+ d00:	cd b7       	in	r28, 0x3d	; 61
+ d02:	de b7       	in	r29, 0x3e	; 62
+	if(EXTI_ApfExtI[EXTI_u8_INT0] != NULL)
+ d04:	80 91 60 00 	lds	r24, 0x0060
+ d08:	90 91 61 00 	lds	r25, 0x0061
+ d0c:	00 97       	sbiw	r24, 0x00	; 0
+ d0e:	29 f0       	breq	.+10     	; 0xd1a <__vector_1+0x40>
+	{
+		EXTI_ApfExtI[EXTI_u8_INT0]();
+ d10:	e0 91 60 00 	lds	r30, 0x0060
+ d14:	f0 91 61 00 	lds	r31, 0x0061
+ d18:	09 95       	icall
+	}
+}
+ d1a:	cf 91       	pop	r28
+ d1c:	df 91       	pop	r29
+ d1e:	ff 91       	pop	r31
+ d20:	ef 91       	pop	r30
+ d22:	bf 91       	pop	r27
+ d24:	af 91       	pop	r26
+ d26:	9f 91       	pop	r25
+ d28:	8f 91       	pop	r24
+ d2a:	7f 91       	pop	r23
+ d2c:	6f 91       	pop	r22
+ d2e:	5f 91       	pop	r21
+ d30:	4f 91       	pop	r20
+ d32:	3f 91       	pop	r19
+ d34:	2f 91       	pop	r18
+ d36:	0f 90       	pop	r0
+ d38:	0f be       	out	0x3f, r0	; 63
+ d3a:	0f 90       	pop	r0
+ d3c:	1f 90       	pop	r1
+ d3e:	18 95       	reti
+
+00000d40 <__vector_2>:
+
+/* Prototype for ISR of EXTI1 */
+void __vector_2(void)    __attribute__((signal));
+void __vector_2(void)
+{
+ d40:	1f 92       	push	r1
+ d42:	0f 92       	push	r0
+ d44:	0f b6       	in	r0, 0x3f	; 63
+ d46:	0f 92       	push	r0
+ d48:	11 24       	eor	r1, r1
+ d4a:	2f 93       	push	r18
+ d4c:	3f 93       	push	r19
+ d4e:	4f 93       	push	r20
+ d50:	5f 93       	push	r21
+ d52:	6f 93       	push	r22
+ d54:	7f 93       	push	r23
+ d56:	8f 93       	push	r24
+ d58:	9f 93       	push	r25
+ d5a:	af 93       	push	r26
+ d5c:	bf 93       	push	r27
+ d5e:	ef 93       	push	r30
+ d60:	ff 93       	push	r31
+ d62:	df 93       	push	r29
+ d64:	cf 93       	push	r28
+ d66:	cd b7       	in	r28, 0x3d	; 61
+ d68:	de b7       	in	r29, 0x3e	; 62
+	if(EXTI_ApfExtI[EXTI_u8_INT1] != NULL)
+ d6a:	80 91 62 00 	lds	r24, 0x0062
+ d6e:	90 91 63 00 	lds	r25, 0x0063
+ d72:	00 97       	sbiw	r24, 0x00	; 0
+ d74:	29 f0       	breq	.+10     	; 0xd80 <__vector_2+0x40>
+	{
+		EXTI_ApfExtI[EXTI_u8_INT1]();
+ d76:	e0 91 62 00 	lds	r30, 0x0062
+ d7a:	f0 91 63 00 	lds	r31, 0x0063
+ d7e:	09 95       	icall
+	}
+}
+ d80:	cf 91       	pop	r28
+ d82:	df 91       	pop	r29
+ d84:	ff 91       	pop	r31
+ d86:	ef 91       	pop	r30
+ d88:	bf 91       	pop	r27
+ d8a:	af 91       	pop	r26
+ d8c:	9f 91       	pop	r25
+ d8e:	8f 91       	pop	r24
+ d90:	7f 91       	pop	r23
+ d92:	6f 91       	pop	r22
+ d94:	5f 91       	pop	r21
+ d96:	4f 91       	pop	r20
+ d98:	3f 91       	pop	r19
+ d9a:	2f 91       	pop	r18
+ d9c:	0f 90       	pop	r0
+ d9e:	0f be       	out	0x3f, r0	; 63
+ da0:	0f 90       	pop	r0
+ da2:	1f 90       	pop	r1
+ da4:	18 95       	reti
+
+00000da6 <__vector_3>:
+
+/* Prototype for ISR of EXTI2 */
+void __vector_3(void)    __attribute__((signal));
+void __vector_3(void)
+{
+ da6:	1f 92       	push	r1
+ da8:	0f 92       	push	r0
+ daa:	0f b6       	in	r0, 0x3f	; 63
+ dac:	0f 92       	push	r0
+ dae:	11 24       	eor	r1, r1
+ db0:	2f 93       	push	r18
+ db2:	3f 93       	push	r19
+ db4:	4f 93       	push	r20
+ db6:	5f 93       	push	r21
+ db8:	6f 93       	push	r22
+ dba:	7f 93       	push	r23
+ dbc:	8f 93       	push	r24
+ dbe:	9f 93       	push	r25
+ dc0:	af 93       	push	r26
+ dc2:	bf 93       	push	r27
+ dc4:	ef 93       	push	r30
+ dc6:	ff 93       	push	r31
+ dc8:	df 93       	push	r29
+ dca:	cf 93       	push	r28
+ dcc:	cd b7       	in	r28, 0x3d	; 61
+ dce:	de b7       	in	r29, 0x3e	; 62
+	if(EXTI_ApfExtI[EXTI_u8_INT2] != NULL)
+ dd0:	80 91 64 00 	lds	r24, 0x0064
+ dd4:	90 91 65 00 	lds	r25, 0x0065
+ dd8:	00 97       	sbiw	r24, 0x00	; 0
+ dda:	29 f0       	breq	.+10     	; 0xde6 <__vector_3+0x40>
+	{
+		EXTI_ApfExtI[EXTI_u8_INT2]();
+ ddc:	e0 91 64 00 	lds	r30, 0x0064
+ de0:	f0 91 65 00 	lds	r31, 0x0065
+ de4:	09 95       	icall
+	}
+ de6:	cf 91       	pop	r28
+ de8:	df 91       	pop	r29
+ dea:	ff 91       	pop	r31
+ dec:	ef 91       	pop	r30
+ dee:	bf 91       	pop	r27
+ df0:	af 91       	pop	r26
+ df2:	9f 91       	pop	r25
+ df4:	8f 91       	pop	r24
+ df6:	7f 91       	pop	r23
+ df8:	6f 91       	pop	r22
+ dfa:	5f 91       	pop	r21
+ dfc:	4f 91       	pop	r20
+ dfe:	3f 91       	pop	r19
+ e00:	2f 91       	pop	r18
+ e02:	0f 90       	pop	r0
+ e04:	0f be       	out	0x3f, r0	; 63
+ e06:	0f 90       	pop	r0
+ e08:	1f 90       	pop	r1
+ e0a:	18 95       	reti
+
+00000e0c <GI_voidEnableGI>:
+#include "GI_interface.h"
+#include "GI_private.h"
+#include "GI_config.h"
+
+void GI_voidEnableGI(void)
+{
+ e0c:	df 93       	push	r29
+ e0e:	cf 93       	push	r28
+ e10:	cd b7       	in	r28, 0x3d	; 61
+ e12:	de b7       	in	r29, 0x3e	; 62
+	SET_BIT(GI_u8_SREG,7);
+ e14:	af e5       	ldi	r26, 0x5F	; 95
+ e16:	b0 e0       	ldi	r27, 0x00	; 0
+ e18:	ef e5       	ldi	r30, 0x5F	; 95
+ e1a:	f0 e0       	ldi	r31, 0x00	; 0
+ e1c:	80 81       	ld	r24, Z
+ e1e:	80 68       	ori	r24, 0x80	; 128
+ e20:	8c 93       	st	X, r24
+}
+ e22:	cf 91       	pop	r28
+ e24:	df 91       	pop	r29
+ e26:	08 95       	ret
+
+00000e28 <GI_voidDisableGI>:
+
+void GI_voidDisableGI(void)
+{
+ e28:	df 93       	push	r29
+ e2a:	cf 93       	push	r28
+ e2c:	cd b7       	in	r28, 0x3d	; 61
+ e2e:	de b7       	in	r29, 0x3e	; 62
+	CLR_BIT(GI_u8_SREG,7);
+ e30:	af e5       	ldi	r26, 0x5F	; 95
+ e32:	b0 e0       	ldi	r27, 0x00	; 0
+ e34:	ef e5       	ldi	r30, 0x5F	; 95
+ e36:	f0 e0       	ldi	r31, 0x00	; 0
+ e38:	80 81       	ld	r24, Z
+ e3a:	8f 77       	andi	r24, 0x7F	; 127
+ e3c:	8c 93       	st	X, r24
+ e3e:	cf 91       	pop	r28
+ e40:	df 91       	pop	r29
+ e42:	08 95       	ret
+
+00000e44 <main>:
+
+//#define  SREG         *((volatile u8*)0x5F)
+void Tog_Led(void);
+
+int main(void)
+{
+ e44:	df 93       	push	r29
+ e46:	cf 93       	push	r28
+ e48:	cd b7       	in	r28, 0x3d	; 61
+ e4a:	de b7       	in	r29, 0x3e	; 62
+	DIO_voidInit();
+ e4c:	0e 94 3e 00 	call	0x7c	; 0x7c <DIO_voidInit>
+	/* Enable Global Interrupt */
+	GI_voidEnableGI();
+ e50:	0e 94 06 07 	call	0xe0c	; 0xe0c <GI_voidEnableGI>
+	/* Set CallBack Function */
+	EXTI_u8EXTISetCallBack(EXTI_u8_INT0,&Tog_Led);
+ e54:	25 e3       	ldi	r18, 0x35	; 53
+ e56:	37 e0       	ldi	r19, 0x07	; 7
+ e58:	80 e0       	ldi	r24, 0x00	; 0
+ e5a:	b9 01       	movw	r22, r18
+ e5c:	0e 94 45 06 	call	0xc8a	; 0xc8a <EXTI_u8EXTISetCallBack>
+	/* Enable EXTI0  */
+	EXTI_u8EXTIEnable(EXTI_u8_INT0,EXTI_u8_ANY_LOGICAL_CHANGE);
+ e60:	80 e0       	ldi	r24, 0x00	; 0
+ e62:	62 e0       	ldi	r22, 0x02	; 2
+ e64:	0e 94 b6 04 	call	0x96c	; 0x96c <EXTI_u8EXTIEnable>
+ e68:	ff cf       	rjmp	.-2      	; 0xe68 <main+0x24>
+
+00000e6a <Tog_Led>:
+}
+/* Prototype for ISR of EXTI0 */
+
+
+void Tog_Led(void)
+{
+ e6a:	df 93       	push	r29
+ e6c:	cf 93       	push	r28
+ e6e:	cd b7       	in	r28, 0x3d	; 61
+ e70:	de b7       	in	r29, 0x3e	; 62
+	static u8 Local_u8Flag = 0;
+	if(Local_u8Flag == 0)
+ e72:	80 91 66 00 	lds	r24, 0x0066
+ e76:	88 23       	and	r24, r24
+ e78:	49 f4       	brne	.+18     	; 0xe8c <Tog_Led+0x22>
+	{
+		DIO_u8SetPinValue(DIO_u8_PORTA,DIO_u8_PIN0,DIO_u8_HIGH);
+ e7a:	80 e0       	ldi	r24, 0x00	; 0
+ e7c:	60 e0       	ldi	r22, 0x00	; 0
+ e7e:	41 e0       	ldi	r20, 0x01	; 1
+ e80:	0e 94 8a 01 	call	0x314	; 0x314 <DIO_u8SetPinValue>
+		Local_u8Flag = 1;
+ e84:	81 e0       	ldi	r24, 0x01	; 1
+ e86:	80 93 66 00 	sts	0x0066, r24
+ e8a:	07 c0       	rjmp	.+14     	; 0xe9a <Tog_Led+0x30>
+	}
+	else
+	{
+		DIO_u8SetPinValue(DIO_u8_PORTA,DIO_u8_PIN0,DIO_u8_LOW);
+ e8c:	80 e0       	ldi	r24, 0x00	; 0
+ e8e:	60 e0       	ldi	r22, 0x00	; 0
+ e90:	40 e0       	ldi	r20, 0x00	; 0
+ e92:	0e 94 8a 01 	call	0x314	; 0x314 <DIO_u8SetPinValue>
+		Local_u8Flag = 0;
+ e96:	10 92 66 00 	sts	0x0066, r1
+	}
+}
+ e9a:	cf 91       	pop	r28
+ e9c:	df 91       	pop	r29
+ e9e:	08 95       	ret
+
+00000ea0 <_exit>:
+ ea0:	f8 94       	cli
+
+00000ea2 <__stop_program>:
+ ea2:	ff cf       	rjmp	.-2      	; 0xea2 <__stop_program>
